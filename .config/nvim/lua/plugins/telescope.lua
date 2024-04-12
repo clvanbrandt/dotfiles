@@ -71,7 +71,7 @@ return {
 				path_display = { "smart" },
 				layout_strategy = "bottom_pane",
 				layout_config = { bottom_pane = { height = 0.5 } },
-				file_ignore_patterns = { "node_plugins/.*" },
+				file_ignore_patterns = { "node_plugins/.*", ".git/*" },
 				mappings = {
 					i = {
 						["<C-j>"] = function(...)
