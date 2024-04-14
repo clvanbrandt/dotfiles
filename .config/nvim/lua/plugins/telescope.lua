@@ -15,7 +15,7 @@ return {
 				desc = "Find files (cwd)",
 			},
 			{ "<leader>fg", '<cmd>lua require"telescope.builtin".git_files()<CR>', desc = "Find files (git)" },
-			{ "<leader>fb", "<cmd>Telescope buffers<CR>" },
+			{ "<leader>fb", "<cmd>Telescope buffers<CR>", desc = "Buffers" },
 			{ "<leader>fh", '<cmd>lua require"telescope.builtin".help_tags()<CR>', desc = "Help pages" },
 			{
 				"<leader>fo",
@@ -31,7 +31,6 @@ return {
 			{ "<leader>ft", "<cmd>Telescope file_browser<CR>", desc = "File browser" },
 			{ "<leader>fq", "<cmd>Telescope quickfix<CR>", desc = "Quickfix" },
 			{ "<leader>fc", "<cmd>Telescope<CR>", desc = "Telescope" },
-			{ "<leader>gb", "<cmd>Telescope git_branches<CR>", desc = "Git branches" },
 		},
 		dependencies = {
 			{
@@ -39,12 +38,12 @@ return {
 				build = "make",
 				lazy = false,
 			},
-			"nvim-telescope/telescope-file-browser.nvim",
+			-- "nvim-telescope/telescope-file-browser.nvim",
 		},
 		config = function(_, opts)
 			require("telescope").setup(opts)
 			require("telescope").load_extension("fzf")
-			require("telescope").load_extension("file_browser")
+			-- require("telescope").load_extension("file_browser")
 		end,
 		opts = {
 			extensions = {
@@ -56,7 +55,7 @@ return {
 					-- the default case_mode is "smart_case"
 				},
 				file_browser = {
-					theme = "ivy",
+					-- theme = "ivy",
 					hijack_netrw = true,
 					mappings = {
 						["i"] = {},
@@ -69,6 +68,7 @@ return {
 				prompt_prefix = " ",
 				selection_caret = "❯ ",
 				path_display = { "smart" },
+				-- layout_strategy = "ivy",
 				layout_strategy = "bottom_pane",
 				layout_config = { bottom_pane = { height = 0.5 } },
 				file_ignore_patterns = { "node_plugins/.*", ".git/*" },

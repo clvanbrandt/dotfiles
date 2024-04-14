@@ -21,6 +21,7 @@ return {
 			vim.keymap.set("n", "<leader>gc", ":Neogit commit<CR>", { silent = true, noremap = true })
 			vim.keymap.set("n", "<leader>gp", ":Neogit pull<CR>", { silent = true, noremap = true })
 			vim.keymap.set("n", "<leader>gP", ":Neogit push<CR>", { silent = true, noremap = true })
+			vim.keymap.set("n", "<leader>gb", ":Neogit branch<CR>", { silent = true, noremap = true })
 
 			neogit.setup(opts)
 		end,
@@ -31,7 +32,6 @@ return {
 			vim.keymap.set("n", "<leader>ut", vim.cmd.UndotreeToggle, { desc = "Toggle undo tree" })
 		end,
 	},
-	-- search/replace in multiple files
 	{
 		"windwp/nvim-spectre",
 		keys = {
@@ -165,6 +165,7 @@ return {
 				harpoon.ui:toggle_quick_menu(harpoon:list())
 			end, { desc = "Harpoon toggle menu" })
 
+			-- Qwerty
 			vim.keymap.set("n", "<leader>mh", function()
 				harpoon:list():select(1)
 			end, { desc = "Harpoon switch to 1" })
@@ -178,18 +179,61 @@ return {
 				harpoon:list():select(4)
 			end, { desc = "Harpoon switch to 4" })
 
-			vim.keymap.set("n", "<leader>m<Left>", function()
+			vim.keymap.set("n", "<leader>m1", function()
 				harpoon:list():select(1)
 			end, { desc = "Harpoon switch to 1" })
-			vim.keymap.set("n", "<leader>m<Down>", function()
+			vim.keymap.set("n", "<leader>m2", function()
 				harpoon:list():select(2)
 			end, { desc = "Harpoon switch to 2" })
-			vim.keymap.set("n", "<leader>m<Up>", function()
+			vim.keymap.set("n", "<leader>m3", function()
 				harpoon:list():select(3)
 			end, { desc = "Harpoon switch to 3" })
-			vim.keymap.set("n", "<leader>m<Right>", function()
+			vim.keymap.set("n", "<leader>m4", function()
 				harpoon:list():select(4)
 			end, { desc = "Harpoon switch to 4" })
+			vim.keymap.set("n", "<leader>m5", function()
+				harpoon:list():select(5)
+			end, { desc = "Harpoon switch to 5" })
+			vim.keymap.set("n", "<leader>m6", function()
+				harpoon:list():select(6)
+			end, { desc = "Harpoon switch to 6" })
+			vim.keymap.set("n", "<leader>m7", function()
+				harpoon:list():select(7)
+			end, { desc = "Harpoon switch to 7" })
+			vim.keymap.set("n", "<leader>m8", function()
+				harpoon:list():select(8)
+			end, { desc = "Harpoon switch to 8" })
+			vim.keymap.set("n", "<leader>m9", function()
+				harpoon:list():select(9)
+			end, { desc = "Harpoon switch to 9" })
+			vim.keymap.set("n", "<leader>m0", function()
+				harpoon:list():select(10)
+			end, { desc = "Harpoon switch to 10" })
+
+			vim.keymap.set("n", "<leader>m!", function()
+				harpoon:list():select(1)
+			end, { desc = "Harpoon switch to 1" })
+			vim.keymap.set("n", "<leader>m@", function()
+				harpoon:list():select(2)
+			end, { desc = "Harpoon switch to 2" })
+			vim.keymap.set("n", "<leader>m#", function()
+				harpoon:list():select(3)
+			end, { desc = "Harpoon switch to 3" })
+			vim.keymap.set("n", "<leader>m$", function()
+				harpoon:list():select(4)
+			end, { desc = "Harpoon switch to 4" })
+			vim.keymap.set("n", "<leader>m%", function()
+				harpoon:list():select(5)
+			end, { desc = "Harpoon switch to 5" })
+			vim.keymap.set("n", "<leader>m^", function()
+				harpoon:list():select(6)
+			end, { desc = "Harpoon switch to 6" })
+			vim.keymap.set("n", "<leader>m&", function()
+				harpoon:list():select(7)
+			end, { desc = "Harpoon switch to 7" })
+			vim.keymap.set("n", "<leader>m*", function()
+				harpoon:list():select(8)
+			end, { desc = "Harpoon switch to 8" })
 
 			-- Toggle previous & next buffers stored within Harpoon list
 			vim.keymap.set("n", "<leader>mp", function()
@@ -225,6 +269,33 @@ return {
 					return { "lsp", "indent" }
 				end,
 				open_fold_hl_timeout = 0,
+				fold_virt_text_handler = function(virtText, lnum, endLnum, width, truncate)
+					local newVirtText = {}
+					local suffix = (" 󰁂 %d "):format(endLnum - lnum)
+					local sufWidth = vim.fn.strdisplaywidth(suffix)
+					local targetWidth = width - sufWidth
+					local curWidth = 0
+					for _, chunk in ipairs(virtText) do
+						local chunkText = chunk[1]
+						local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+						if targetWidth > curWidth + chunkWidth then
+							table.insert(newVirtText, chunk)
+						else
+							chunkText = truncate(chunkText, targetWidth - curWidth)
+							local hlGroup = chunk[2]
+							table.insert(newVirtText, { chunkText, hlGroup })
+							chunkWidth = vim.fn.strdisplaywidth(chunkText)
+							-- str width returned from truncate() may less than 2nd argument, need padding
+							if curWidth + chunkWidth < targetWidth then
+								suffix = suffix .. (" "):rep(targetWidth - curWidth - chunkWidth)
+							end
+							break
+						end
+						curWidth = curWidth + chunkWidth
+					end
+					table.insert(newVirtText, { suffix, "MoreMsg" })
+					return newVirtText
+				end,
 			})
 		end,
 	},

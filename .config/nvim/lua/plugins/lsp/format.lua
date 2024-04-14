@@ -23,9 +23,12 @@ function M.format()
 		bufnr = buf,
 		filter = function(client)
 			if have_nls then
-				return client.name == "null-ls" or client.name == "metals" or client.name == "rust_analyzer"
+				return client.name == "null-ls"
+					or client.name == "metals"
+					or client.name == "rust_analyzer"
+					or client.name == "ruff"
 			end
-			return client.name ~= "null-ls" and client.name ~= "sqls"
+			return client.name ~= "null-ls"
 		end,
 	}, require("util").opts("nvim-lspconfig").format or {}))
 end

@@ -242,8 +242,8 @@ return {
 					-- format.prettierd,
 					format.stylua,
 					format.terraform_fmt,
-					format.isort,
-					format.black,
+					-- format.isort,
+					-- format.black,
 				},
 			}
 		end,

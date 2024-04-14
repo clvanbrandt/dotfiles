@@ -31,12 +31,14 @@ function M.on_attach(client, buffer)
 	map("n", "gK", vim.lsp.buf.signature_help, "Signature help")
 	map("i", "<c-k>", vim.lsp.buf.signature_help, "Signature help")
 
-	-- map("n", "]d", M.diagnostic_goto(true), "Next diagnostic")
-	-- map("n", "[d", M.diagnostic_goto(false), "Previous diagnostic")
-	map("n", "]e", M.diagnostic_goto(true, "ERROR"), "Next error")
-	map("n", "[e", M.diagnostic_goto(false, "ERROR"), "Previous error")
-	map("n", "]w", M.diagnostic_goto(true, "WARN"), "Next warning")
-	map("n", "[w", M.diagnostic_goto(false, "WARN"), "Previous warning")
+	if not require("util").has("mini.bracketed") then
+		map("n", "]d", M.diagnostic_goto(true), "Diagnostic forward")
+		map("n", "[d", M.diagnostic_goto(false), "Diagnostic backward")
+	end
+	map("n", "]e", M.diagnostic_goto(true, "ERROR"), "Error forward")
+	map("n", "[e", M.diagnostic_goto(false, "ERROR"), "Error backward")
+	map("n", "]w", M.diagnostic_goto(true, "WARN"), "Warning forward")
+	map("n", "[w", M.diagnostic_goto(false, "WARN"), "Warning backward")
 
 	map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code actions")
 
