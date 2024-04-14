@@ -24,7 +24,7 @@ key = "C"
 mods = "Alt"
 
 [scrolling]
-history = 1000
+history = 10000
 
 [shell]
 args = ["-l"]
