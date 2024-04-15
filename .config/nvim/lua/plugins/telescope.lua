@@ -28,7 +28,6 @@ return {
 				'<cmd>lua require("telescope").extensions.notify.notify()<CR>',
 				desc = "Notifications",
 			},
-			{ "<leader>ft", "<cmd>Telescope file_browser<CR>", desc = "File browser" },
 			{ "<leader>fq", "<cmd>Telescope quickfix<CR>", desc = "Quickfix" },
 			{ "<leader>fc", "<cmd>Telescope<CR>", desc = "Telescope" },
 		},
@@ -53,14 +52,6 @@ return {
 					override_file_sorter = true, -- override the file sorter
 					case_mode = "smart_case", -- or "ignore_case" or "respect_case"
 					-- the default case_mode is "smart_case"
-				},
-				file_browser = {
-					-- theme = "ivy",
-					hijack_netrw = true,
-					mappings = {
-						["i"] = {},
-						["n"] = {},
-					},
 				},
 			},
 			follow_symlinks = true,
