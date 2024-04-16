@@ -33,6 +33,10 @@ vim.keymap.set("n", ";", ":")
 
 vim.keymap.set("n", "Q", "<nop>")
 
+-- No accidental macro recording
+vim.keymap.set("n", "q", "<nop>", { noremap = true })
+vim.keymap.set("n", "qq", "q", { noremap = true })
+
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
 -- Ctrl-j to escape

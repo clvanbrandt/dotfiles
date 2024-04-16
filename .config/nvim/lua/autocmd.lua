@@ -90,4 +90,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+-- vim.cmd([[ autocmd RecordingEnter * set cmdheight=1 ]])
+-- vim.cmd([[ autocmd RecordingLeave * set cmdheight=0 ]])
+
 return M
