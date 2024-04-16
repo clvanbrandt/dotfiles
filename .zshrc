@@ -9,7 +9,7 @@ setopt HIST_IGNORE_ALL_DUPS
 # Do not find duplicate command when searching
 setopt HIST_FIND_NO_DUPS
 
-export HISTORY_IGNORE="(l[l ll]|cd|pwd|exit|h[s]|history|cd -|cd ..|cd|j|z|vi *|l[alsh]#( *)#)"
+export HISTORY_IGNORE="(l[l ll]|cd|pwd|exit|h[s]|history|cd -|cd ..|cd|j|z|vi|e|vi *|l[alsh]#( *)#)"
 export HISTFILE="${HOME}/.zsh_history"
 export SAVEHIST=100000
 export HISTSIZE=100000

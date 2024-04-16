@@ -98,10 +98,10 @@ vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 -- QuickFix
--- vim.keymap.set("n", "]q", ":cnext<CR>", { desc = "Next quickfix" })
--- vim.keymap.set("n", "[q", ":cprev<CR>", { desc = "Prev quickfix" })
-vim.keymap.set("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location list" })
-vim.keymap.set("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix list" })
+vim.keymap.set("n", "<c-k>", ":cnext<CR>", { desc = "Next quickfix", silent = true })
+vim.keymap.set("n", "<c-j>", ":cprev<CR>", { desc = "Prev quickfix", silent = true })
+vim.keymap.set("n", "<leader>xL", "<cmd>lopen<cr>", { desc = "Location List" })
+vim.keymap.set("n", "<leader>xQ", "<cmd>copen<cr>", { desc = "Quickfix List" })
 
 -- Indent
 vim.keymap.set("v", "<", "<gv")

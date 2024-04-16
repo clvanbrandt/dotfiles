@@ -45,6 +45,11 @@ return {
 		opts = {
 			messages = { enabled = false },
 			-- add any options here
+			popupmenu = {
+				enabled = true, -- enables the Noice popupmenu UI
+				backend = "nui", -- backend to use to show regular cmdline completions
+				kind_icons = {}, -- set to `false` to disable icons
+			},
 			lsp = {
 				-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
 				override = {
@@ -57,16 +62,28 @@ return {
 			-- you can enable a preset for easier configuration
 			presets = {
 				bottom_search = true, -- use a classic bottom cmdline for search
-				command_palette = true, -- position the cmdline and popupmenu together
-				long_message_to_split = true, -- long messages will be sent to a split
-				inc_rename = false, -- enables an input dialog for inc-rename.nvim
-				lsp_doc_border = false, -- add a border to hover docs and signature help
+				command_palette = false, -- position the cmdline and popupmenu together
+				lsp_doc_border = true, -- add a border to hover docs and signature help
 			},
 		},
 		dependencies = {
 			"MunifTanjim/nui.nvim",
 			"rcarriga/nvim-notify",
 		},
+		config = function(_, opts)
+			require("noice").setup(opts)
+			vim.keymap.set({ "n", "i", "s" }, "<c-d>", function()
+				if not require("noice.lsp").scroll(4) then
+					return "<c-d>"
+				end
+			end, { silent = true, expr = true })
+
+			vim.keymap.set({ "n", "i", "s" }, "<c-u>", function()
+				if not require("noice.lsp").scroll(-4) then
+					return "<c-u>"
+				end
+			end, { silent = true, expr = true })
+		end,
 	},
 	{
 		"rcarriga/nvim-notify",
@@ -80,7 +97,8 @@ return {
 			},
 		},
 		opts = {
-			timeout = 3000,
+			render = "compact",
+			timeout = 1000,
 			max_height = function()
 				return math.floor(vim.o.lines * 0.75)
 			end,
@@ -91,19 +109,6 @@ return {
 	},
 	{
 		"stevearc/dressing.nvim",
-		lazy = true,
-		init = function()
-			---@diagnostic disable-next-line: duplicate-set-field
-			vim.ui.select = function(...)
-				require("lazy").load({ plugins = { "dressing.nvim" } })
-				return vim.ui.select(...)
-			end
-			---@diagnostic disable-next-line: duplicate-set-field
-			vim.ui.input = function(...)
-				require("lazy").load({ plugins = { "dressing.nvim" } })
-				return vim.ui.input(...)
-			end
-		end,
 	},
 	{
 		"levouh/tint.nvim",
@@ -124,5 +129,37 @@ return {
 			map("n", "<leader>j", "<cmd> TmuxNavigateDown<CR>", { expr = false, desc = "Navigate window down" })
 			map("n", "<leader>k", "<cmd> TmuxNavigateUp<CR>", { expr = false, desc = "Navigate window up" })
 		end,
+	},
+	{
+		"folke/trouble.nvim",
+		branch = "dev",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		keys = {
+			{
+				"<leader>xx",
+				"<cmd>Trouble diagnostics toggle<cr>",
+				desc = "Diagnostics (Trouble)",
+			},
+			{
+				"<leader>xX",
+				"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+				desc = "Buffer Diagnostics (Trouble)",
+			},
+			{
+				"<leader>xl",
+				"<cmd>Trouble loclist toggle<cr>",
+				desc = "Location List (Trouble)",
+			},
+			{
+				"<leader>xq",
+				"<cmd>Trouble qflist toggle<cr>",
+				desc = "Quickfix List (Trouble)",
+			},
+		},
+		opts = {
+			-- preview = { type = "floating" },
+			auto_preview = false,
+			focus = true,
+		},
 	},
 }

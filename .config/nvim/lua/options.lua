@@ -14,7 +14,7 @@ o.wildmenu = true
 o.wildmode = "list:longest"
 
 -- Appearance
-o.cmdheight = 1
+o.cmdheight = 0
 o.colorcolumn = "88"
 o.cursorline = true
 -- o.foldmethod = 'marker'
@@ -43,7 +43,7 @@ o.joinspaces = false
 o.mouse = "a"
 o.scrolloff = 8
 o.sidescrolloff = 8
-o.splitbelow = true
+o.splitbelow = false
 o.splitright = true
 o.timeoutlen = 1000
 o.updatetime = 300
@@ -119,5 +119,4 @@ vim.cmd([[
     " Show those damn hidden characters
     " Verbose: set listchars=nbsp:¬,eol:¶,extends:»,precedes:«,trail:•
     set listchars=nbsp:¬,extends:»,precedes:«,trail:•
-
 ]])

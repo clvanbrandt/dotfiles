@@ -62,9 +62,15 @@ return {
 				-- layout_strategy = "ivy",
 				layout_strategy = "bottom_pane",
 				layout_config = { bottom_pane = { height = 0.5 } },
-				file_ignore_patterns = { "node_plugins/.*", ".git/*" },
+				file_ignore_patterns = { "node_plugins/.*", ".git/.*" },
 				mappings = {
 					i = {
+						["<C-q>"] = function(...)
+							require("telescope.actions").send_to_qflist(...)
+						end,
+						["<M-q>"] = function(...)
+							require("telescope.actions").send_selected_to_qflist(...)
+						end,
 						["<C-j>"] = function(...)
 							return require("telescope.actions").move_selection_next(...)
 						end,
@@ -92,8 +98,8 @@ return {
 				},
 			},
 			pickers = {
-				file_browser = {
-					initial_mode = "normal",
+				quickfix = {
+					theme = "ivy",
 				},
 				buffers = {
 					theme = "ivy",
