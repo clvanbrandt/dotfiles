@@ -1,2 +1,12 @@
+session_sort_order = "LastAttached"
+
+[[search_dirs]]
+path = "/home/clvanbrandt/dotfiles"
+depth = 10
+
+[[search_dirs]]
+path = "/home/clvanbrandt/Projects"
+depth = 10
+
 [shortcuts]
-"q" = "cancel"
+q = "cancel"
