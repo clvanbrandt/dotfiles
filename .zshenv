@@ -1,3 +1,4 @@
+export DOOMDIR="$HOME/dotfiles/.doom.d/"
 # Local
 export PATH="$HOME/.local/bin:${PATH}"
 export PATH="$HOME/.bin:${PATH}"
@@ -46,7 +47,7 @@ fi
 export PATH="$SPARK_HOME/bin:$SPARK_HOME/sbin:${PATH}"
 
 # Emacs
-export PATH="$HOME/.emacs.d/bin:${PATH}"
+export PATH="$HOME/.config/emacs/bin:${PATH}"
 
 # Docker
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -62,4 +63,3 @@ export PATH="$PATH:/Users/clvanbrandt/Library/Application Support/Coursier/bin"
 
 export JAVA_HOME="/usr/lib/jvm/default"
 
-. "$HOME/.cargo/env"

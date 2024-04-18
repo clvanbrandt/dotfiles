@@ -14,7 +14,7 @@ o.wildmenu = true
 o.wildmode = "list:longest"
 
 -- Appearance
-o.cmdheight = 0
+o.cmdheight = 1
 o.colorcolumn = "88"
 o.cursorline = true
 -- o.foldmethod = 'marker'

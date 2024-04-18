@@ -43,7 +43,7 @@ return {
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		opts = {
-			messages = { enabled = false },
+			messages = { enabled = true, view = false },
 			-- add any options here
 			popupmenu = {
 				enabled = true, -- enables the Noice popupmenu UI
@@ -107,9 +107,9 @@ return {
 			end,
 		},
 	},
-	{
-		"stevearc/dressing.nvim",
-	},
+	-- {
+	-- 	"stevearc/dressing.nvim",
+	-- },
 	{
 		"levouh/tint.nvim",
 		config = function()
