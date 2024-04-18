@@ -43,12 +43,13 @@ o.joinspaces = false
 o.mouse = "a"
 o.scrolloff = 8
 o.sidescrolloff = 8
-o.splitbelow = false
+o.splitbelow = true
 o.splitright = true
 o.timeoutlen = 1000
 o.updatetime = 300
 o.virtualedit = "block"
 o.iskeyword = o.iskeyword + "-"
+o.showtabline = 0
 
 -- Listchars
 -- vim.opt.list = true
@@ -82,6 +83,8 @@ o.shortmess = o.shortmess
 		W = true, -- don't give "written" or "[w]" when writing a file
 		c = true, -- don't give |ins-completion-menu| messages
 		m = true, -- use "[+]" instead of "[Modified]"
+		F = true,
+		s = true,
 	}
 
 -- Format options

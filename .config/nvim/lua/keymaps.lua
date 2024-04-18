@@ -26,7 +26,8 @@ vim.cmd([[
 --=============================================================================
 
 -- Quick-save
-vim.keymap.set("n", "<leader>w", ":w<CR>", { noremap = true, silent = true, desc = "Save file" })
+vim.keymap.set("n", "<leader>fs", ":silent w<CR>", { noremap = true, silent = true, desc = "Save file" })
+vim.keymap.set("n", "<leader>fz", ":silent wq<CR>", { noremap = true, silent = true, desc = "Save file" })
 
 -- ; as
 vim.keymap.set("n", ";", ":")
@@ -79,11 +80,23 @@ vim.keymap.set("n", "<Up>", "g<Up>")
 vim.keymap.set("n", "g<Down>", "<Down>")
 vim.keymap.set("n", "g<Up>", "<Up>")
 
--- Split navigation
+-- Split
+vim.keymap.set("n", "<leader>ws", "<C-W><C-S>", { desc = "Split window" })
+vim.keymap.set("n", "<leader>wv", "<C-W><C-V>", { desc = "Split window vertically" })
+vim.keymap.set("n", "<leader>wc", "<C-W><C-C>", { desc = "Close window" })
+vim.keymap.set("n", "<leader>wo", "<C-W><C-O>", { desc = "Close all other windows" })
+
+-- Navigation
 vim.keymap.set("n", "<leader>j", "<C-W><C-J>", { desc = "Go to lower window" })
 vim.keymap.set("n", "<leader>k", "<C-W><C-K>", { desc = "Go to upper window" })
 vim.keymap.set("n", "<leader>l", "<C-W><C-L>", { desc = "Go to right window" })
 vim.keymap.set("n", "<leader>h", "<C-W><C-H>", { desc = "Go to left window" })
+
+-- Colemak edition
+vim.keymap.set("n", "<leader>wn", "<C-W><C-J>", { desc = "Go to lower window" })
+vim.keymap.set("n", "<leader>we", "<C-W><C-K>", { desc = "Go to upper window" })
+vim.keymap.set("n", "<leader>wi", "<C-W><C-L>", { desc = "Go to right window" })
+vim.keymap.set("n", "<leader>wm", "<C-W><C-H>", { desc = "Go to left window" })
 
 -- Split resize
 vim.keymap.set("n", "<C-Up>", ":resize +2<CR>", { silent = true })

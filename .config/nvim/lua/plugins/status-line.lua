@@ -15,10 +15,6 @@ local function refresh_lualine()
 end
 
 return {
-	-- {
-	-- 	"vimpostor/vim-tpipeline",
-	-- 	lazy = false,
-	-- 	dependencies = {
 	{
 		"nvim-lualine/lualine.nvim",
 		opts = {
@@ -36,15 +32,20 @@ return {
 				lualine_b = {
 					"branch",
 					"diff",
-					{ "diagnostics", sources = { "nvim_diagnostic" } },
+					{ "diagnostics", sources = { "nvim_lsp" } },
 				},
 				lualine_c = { "filename" },
-				lualine_x = { "encoding", "fileformat", "filetype" },
-				lualine_y = {
+				lualine_x = {
 					{
 						"macro-recording",
 						fmt = show_macro_recording,
 					},
+					"encoding",
+					"fileformat",
+					"filetype",
+				},
+				lualine_y = {
+					{ "tabs", mode = 1 },
 				},
 				lualine_z = { "location" },
 			},
@@ -73,18 +74,10 @@ return {
 
 			vim.api.nvim_create_autocmd("RecordingLeave", {
 				callback = function()
-					-- This is going to seem really weird!
-					-- Instead of just calling refresh we need to wait a moment because of the nature of
-					-- `vim.fn.reg_recording`. If we tell lualine to refresh right now it actually will
-					-- still show a recording occuring because `vim.fn.reg_recording` hasn't emptied yet.
-					-- So what we need to do is wait a tiny amount of time (in this instance 50 ms) to
-					-- ensure `vim.fn.reg_recording` is purged before asking lualine to refresh.
 					local timer = vim.loop.new_timer()
 					timer:start(50, 0, vim.schedule_wrap(refresh_lualine))
 				end,
 			})
 		end,
 	},
-	-- 	},
-	-- },
 }

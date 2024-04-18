@@ -43,7 +43,7 @@ return {
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		opts = {
-			messages = { enabled = true, view = false },
+			messages = { enabled = true },
 			-- add any options here
 			popupmenu = {
 				enabled = true, -- enables the Noice popupmenu UI

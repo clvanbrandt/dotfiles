@@ -26,7 +26,7 @@ return {
 					trim_right = ">",
 				},
 			})
-			vim.keymap.set("n", "<leader>ft", ":lua MiniFiles.open()<CR>", { desc = "File browser", silent = true })
+			vim.keymap.set("n", "<leader>ftt", ":lua MiniFiles.open()<CR>", { desc = "File browser", silent = true })
 		end,
 	},
 }
