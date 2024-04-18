@@ -142,6 +142,7 @@ return {
 				},
 				live_grep = {
 					theme = "ivy",
+					hidden = true,
 					layout_config = {
 						height = 30,
 					},
