@@ -14,6 +14,15 @@ local function refresh_lualine()
 	})
 end
 
+local project_root = {
+	function()
+		return vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+	end,
+	icon = "",
+	-- cond = hide_in_width,
+	separator = "",
+}
+
 return {
 	{ "vimpostor/vim-tpipeline" },
 	{
@@ -38,6 +47,7 @@ return {
 					},
 					winbar = {},
 				},
+
 				always_divide_middle = true,
 				globalstatus = true,
 			},
@@ -48,7 +58,7 @@ return {
 					"diff",
 					{ "diagnostics", sources = { "nvim_lsp" } },
 				},
-				lualine_c = { "filename" },
+				lualine_c = { project_root, "filename" },
 				lualine_x = {
 					{
 						"macro-recording",
