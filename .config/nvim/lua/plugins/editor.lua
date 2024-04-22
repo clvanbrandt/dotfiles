@@ -110,25 +110,10 @@ return {
 	-- {
 	-- 	"stevearc/dressing.nvim",
 	-- },
-	{
-		"levouh/tint.nvim",
-		config = function()
-			require("tint").setup()
-		end,
-	},
 	{ "NoahTheDuke/vim-just" },
 	{
 		"christoomey/vim-tmux-navigator",
 		lazy = false,
-		config = function()
-			local map = function(mode, key, cmd, opts)
-				vim.keymap.set(mode, key, cmd, opts or { noremap = true, silent = true })
-			end
-			map("n", "<leader>h", "<cmd> TmuxNavigateLeft<CR>", { expr = false, desc = "Navigate window left" })
-			map("n", "<leader>l", "<cmd> TmuxNavigateRight<CR>", { expr = false, desc = "Navigate window right" })
-			map("n", "<leader>j", "<cmd> TmuxNavigateDown<CR>", { expr = false, desc = "Navigate window down" })
-			map("n", "<leader>k", "<cmd> TmuxNavigateUp<CR>", { expr = false, desc = "Navigate window up" })
-		end,
 	},
 	{
 		"folke/trouble.nvim",

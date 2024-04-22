@@ -30,6 +30,7 @@ return {
 			},
 			{ "<leader>fq", "<cmd>Telescope quickfix<CR>", desc = "Quickfix" },
 			{ "<leader>fc", "<cmd>Telescope<CR>", desc = "Telescope" },
+			{ "<leader>fm", "<cmd>Telescope git_status<CR>", desc = "Modified files" },
 		},
 		dependencies = {
 			{
@@ -40,114 +41,140 @@ return {
 			"nvim-telescope/telescope-ui-select.nvim",
 		},
 		config = function(_, opts)
-			require("telescope").setup(opts)
+			local telescope = require("telescope")
+			local actions = require("telescope.actions")
+			local trouble = require("trouble.sources.telescope")
+
+			require("telescope").setup({
+				extensions = {
+					fzf = {
+						fuzzy = true, -- false will only do exact matching
+						override_generic_sorter = true, -- override the generic sorter
+						override_file_sorter = true, -- override the file sorter
+						case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+						-- the default case_mode is "smart_case"
+					},
+					["ui-select"] = {
+						require("telescope.themes").get_dropdown({
+							previewer = false,
+							initial_mode = "normal",
+							sorting_strategy = "ascending",
+						}),
+					},
+				},
+				follow_symlinks = true,
+				defaults = {
+					prompt_prefix = " ",
+					selection_caret = "❯ ",
+					path_display = { "smart" },
+					layout_strategy = "bottom_pane",
+					layout_config = { bottom_pane = { height = 0.5 } },
+					file_ignore_patterns = { "node_plugins/.*", "%.git/.", "package-lock.json" },
+					vimgrep_arguments = {
+						"rg",
+						"--color=never",
+						"--no-heading",
+						"--with-filename",
+						"--line-number",
+						"--column",
+						"--smart-case",
+						"--hidden",
+						"--glob=!.git/",
+					},
+					mappings = {
+						i = {
+							["<C-q>"] = function(...)
+								actions.send_to_qflist(...)
+							end,
+							["<M-q>"] = function(...)
+								actions.send_selected_to_qflist(...)
+							end,
+							["<C-j>"] = function(...)
+								return actions.move_selection_next(...)
+							end,
+							["<C-k>"] = function(...)
+								return actions.move_selection_previous(...)
+							end,
+							["<C-n>"] = function(...)
+								return actions.cycle_history_next(...)
+							end,
+							["<C-p>"] = function(...)
+								return actions.cycle_history_prev(...)
+							end,
+							["<C-d>"] = function(...)
+								return actions.preview_scrolling_down(...)
+							end,
+							["<C-u>"] = function(...)
+								return actions.preview_scrolling_up(...)
+							end,
+							["<C-t>"] = trouble.open,
+						},
+						n = {
+							["q"] = function(...)
+								return actions.close(...)
+							end,
+							["t"] = trouble.open,
+						},
+					},
+				},
+				pickers = {
+					builtin = {
+						theme = "ivy",
+					},
+					buffers = {
+						theme = "ivy",
+						initial_mode = "normal",
+						mappings = {
+							i = {
+								["<c-d>"] = actions.delete_buffer,
+							},
+							n = {
+								["d"] = actions.delete_buffer,
+							},
+						},
+					},
+					find_files = {
+						theme = "ivy",
+						hidden = true,
+					},
+					git_files = {
+						theme = "ivy",
+						hidden = true,
+						show_untracked = true,
+					},
+					git_status = {
+						theme = "ivy",
+					},
+					oldfiles = {
+						theme = "ivy",
+						previewer = false,
+					},
+					help_tags = {
+						theme = "ivy",
+						previewer = false,
+					},
+					lsp_references = {
+						theme = "ivy",
+					},
+					lsp_definitions = {
+						theme = "ivy",
+					},
+					notify = {
+						theme = "ivy",
+					},
+					live_grep = {
+						theme = "ivy",
+						hidden = true,
+						only_sort_text = true,
+						layout_config = {
+							height = 0.5,
+						},
+					},
+				},
+			})
 			require("telescope").load_extension("fzf")
 			require("telescope").load_extension("ui-select")
+			require("telescope").load_extension("notify")
 		end,
-		opts = {
-			extensions = {
-				fzf = {
-					fuzzy = true, -- false will only do exact matching
-					override_generic_sorter = true, -- override the generic sorter
-					override_file_sorter = true, -- override the file sorter
-					case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-					-- the default case_mode is "smart_case"
-				},
-				["ui-select"] = {
-					require("telescope.themes").get_dropdown({
-						-- even more opts
-					}),
-
-					-- pseudo code / specification for writing custom displays, like the one
-					-- for "codeactions"
-					-- specific_opts = {
-					--   [kind] = {
-					--     make_indexed = function(items) -> indexed_items, width,
-					--     make_displayer = function(widths) -> displayer
-					--     make_display = function(displayer) -> function(e)
-					--     make_ordinal = function(e) -> string
-					--   },
-					--   -- for example to disable the custom builtin "codeactions" display
-					--      do the following
-					--   codeactions = false,
-					-- }
-				},
-			},
-			follow_symlinks = true,
-			defaults = {
-				prompt_prefix = " ",
-				selection_caret = "❯ ",
-				path_display = { "smart" },
-				-- layout_strategy = "ivy",
-				layout_strategy = "bottom_pane",
-				layout_config = { bottom_pane = { height = 0.5 } },
-				file_ignore_patterns = { "node_plugins/.*", ".git/.*" },
-				mappings = {
-					i = {
-						["<C-q>"] = function(...)
-							require("telescope.actions").send_to_qflist(...)
-						end,
-						["<M-q>"] = function(...)
-							require("telescope.actions").send_selected_to_qflist(...)
-						end,
-						["<C-j>"] = function(...)
-							return require("telescope.actions").move_selection_next(...)
-						end,
-						["<C-k>"] = function(...)
-							return require("telescope.actions").move_selection_previous(...)
-						end,
-						["<C-n>"] = function(...)
-							return require("telescope.actions").cycle_history_next(...)
-						end,
-						["<C-p>"] = function(...)
-							return require("telescope.actions").cycle_history_prev(...)
-						end,
-						["<C-d>"] = function(...)
-							return require("telescope.actions").preview_scrolling_down(...)
-						end,
-						["<C-u>"] = function(...)
-							return require("telescope.actions").preview_scrolling_up(...)
-						end,
-					},
-					n = {
-						["q"] = function(...)
-							return require("telescope.actions").close(...)
-						end,
-					},
-				},
-			},
-			pickers = {
-				quickfix = {
-					theme = "ivy",
-				},
-				buffers = {
-					theme = "ivy",
-				},
-				find_files = {
-					theme = "ivy",
-					hidden = true,
-				},
-				git_files = {
-					theme = "ivy",
-					hidden = true,
-					show_untracked = true,
-				},
-				oldfiles = {
-					theme = "ivy",
-					previewer = false,
-				},
-				help_tags = {
-					theme = "ivy",
-					previewer = false,
-				},
-				live_grep = {
-					theme = "ivy",
-					hidden = true,
-					layout_config = {
-						height = 30,
-					},
-				},
-			},
-		},
 	},
 }
