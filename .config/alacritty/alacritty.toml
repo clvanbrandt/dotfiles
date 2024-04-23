@@ -1,6 +1,6 @@
 import = [
-    # "~/.config/alacritty/catppuccin-macchiato.toml",
-    "~/.config/alacritty/catppuccin-frappe.toml",
+    "~/.config/alacritty/catppuccin-macchiato.toml",
+    # "~/.config/alacritty/catppuccin-frappe.toml",
     # "~/.config/alacritty/themes/themes/tokyo-night.toml",
 ]
 
@@ -8,7 +8,7 @@ import = [
 TERM = "xterm-256color"
 
 [font]
-size = 18.0
+size = 14
 
 [font.normal]
 family = "FiraCode Nerd Font Mono"
@@ -43,6 +43,12 @@ action = "Copy"
 key = "C"
 mods = "Alt"
 
+
+[[keyboard.bindings]]
+key = "Back"
+mods = "Command"
+chars = "\u0015"
+
 [scrolling]
 history = 10000
 
@@ -53,7 +59,8 @@ program = "/bin/zsh"
 [window]
 decorations = "full"
 opacity = 0.8
+dynamic_padding=true
 
 [window.padding]
-x = 0
-y = 0
+# x = 0
+# y = 0
