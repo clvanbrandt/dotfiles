@@ -7,7 +7,7 @@ let mapleader = "\<Space>"
 set nocompatible
 
 " Quick-save
-nmap <leader>w :w<CR>
+nmap <leader>fs :w<CR>
 
 " Don't confirm .lvimrc
 let g:localvimrc_ask = 0
@@ -69,18 +69,6 @@ map L $
 
 " Open new file adjacent to current file
 nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
-
-" No arrow keys --- force yourself to use the home row
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
-
-" Left and right can switch buffers
-nnoremap <left> :bp<CR>
-nnoremap <right> :bn<CR>
 
 " Move by line
 nnoremap j gj
