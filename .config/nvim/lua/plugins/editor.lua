@@ -18,7 +18,7 @@ return {
 		"windwp/nvim-spectre",
 		keys = {
 			{
-				"<leader>sp",
+				"<leader>sr",
 				function()
 					require("spectre").open()
 				end,
@@ -43,7 +43,7 @@ return {
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		opts = {
-			messages = { enabled = false },
+			messages = { enabled = true },
 			-- add any options here
 			popupmenu = {
 				enabled = true, -- enables the Noice popupmenu UI
@@ -116,6 +116,14 @@ return {
 		lazy = false,
 	},
 	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		config = true,
+		opts = {
+			check_ts = true,
+		},
+	},
+	{
 		"folke/trouble.nvim",
 		branch = "dev",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -129,6 +137,16 @@ return {
 				"<leader>xX",
 				"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
 				desc = "Buffer Diagnostics (Trouble)",
+			},
+			{
+				"<leader>cs",
+				"<cmd>Trouble symbols toggle focus=false<cr>",
+				desc = "Symbols (Trouble)",
+			},
+			{
+				"<leader>cd",
+				"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+				desc = "LSP Definitions / references / ... (Trouble)",
 			},
 			{
 				"<leader>xl",

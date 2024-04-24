@@ -1,3 +1,35 @@
+local util = require("util")
+
+local function find_files_from_root()
+	local opts = {}
+	local builtin = "find_files"
+
+	if util.is_git_repo() then
+		opts = {
+			cwd = util.get_git_root(),
+			hidden = true,
+			show_untracked = true,
+		}
+
+		builtin = "git_files"
+	end
+	require("telescope.builtin")[builtin](opts)
+end
+
+local function live_grep_from_root()
+	local opts = {}
+	if util.is_git_repo() then
+		opts = {
+			cwd = util.get_git_root(),
+			hidden = true,
+			show_untracked = true,
+			only_sort_text = true,
+		}
+	end
+
+	require("telescope.builtin").live_grep(opts)
+end
+
 return {
 	{
 		"nvim-telescope/telescope.nvim",
@@ -6,31 +38,45 @@ return {
 		keys = {
 			{
 				"<leader>ff",
-				'<cmd>lua require"telescope.builtin".find_files()<CR>',
-				desc = "Find files",
+				"<cmd>Telescope find_files<CR>",
+				desc = "Find Files",
 			},
 			{
 				"<leader>fF",
-				'<cmd>lua require"telescope.builtin".find_files({cwd = false})<CR>',
-				desc = "Find files (cwd)",
+				find_files_from_root,
+				desc = "Find Files (Root Dir)",
 			},
-			{ "<leader>fg", '<cmd>lua require"telescope.builtin".git_files()<CR>', desc = "Find files (git)" },
+			{ "<leader>fg", "<cmd>Telescope git_files<CR>", desc = "Find files (git)" },
 			{ "<leader>fb", "<cmd>Telescope buffers<CR>", desc = "Buffers" },
-			{ "<leader>fh", '<cmd>lua require"telescope.builtin".help_tags()<CR>', desc = "Help pages" },
+			{ "<leader>fh", "<cmd>Telescope help_tags<CR>", desc = "Help pages" },
 			{
 				"<leader>fo",
-				'<cmd>lua require"telescope.builtin".oldfiles()<CR>',
+				"<cmd>Telescope oldfiles<CR>",
 				desc = "Recent files",
 			},
-			{ "<leader>fw", '<cmd>lua require"telescope.builtin".live_grep()<CR>', desc = "Grep" },
+			{ "<leader>fw", "<cmd>Telescope live_grep<CR>", desc = "Grep" },
 			{
 				"<leader>fn",
-				'<cmd>lua require("telescope").extensions.notify.notify()<CR>',
+				"<cmd>Telescope notify<CR>",
 				desc = "Notifications",
 			},
 			{ "<leader>fq", "<cmd>Telescope quickfix<CR>", desc = "Quickfix" },
 			{ "<leader>fc", "<cmd>Telescope<CR>", desc = "Telescope" },
-			{ "<leader>fm", "<cmd>Telescope git_status<CR>", desc = "Modified files" },
+			{ "<leader>sa", "<cmd>Telescope autocommands<CR>", desc = "Auto Commands" },
+			{ "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<CR>", desc = "Buffer" },
+			{ "<leader>sc", "<cmd>Telescope command_history<CR>", desc = "Command History" },
+			{ "<leader>sC", "<cmd>Telescope commands<CR>", desc = "Commands" },
+			{ "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<CR>", desc = "Document Diagnostics" },
+			{ "<leader>sD", "<cmd>Telescope diagnostics<CR>", desc = "Workspace Diagnostics" },
+			{ "<leader>sg", "<cmd>Telescope live_grep<CR>", desc = "Grep" },
+			{ "<leader>sG", live_grep_from_root, desc = "Grep (Root Dir)" },
+			{ "<leader>sh", "<cmd>Telescope help_tags<CR>", desc = "Help Pages" },
+			{ "<leader>sH", "<cmd>Telescope highlights<CR>", desc = "Search Highlight Groups" },
+			{ "<leader>sk", "<cmd>Telescope keymaps<CR>", desc = "Key Maps" },
+			{ "<leader>sM", "<cmd>Telescope man_pages<CR>", desc = "Man Pages" },
+			{ "<leader>sm", "<cmd>Telescope marks<CR>", desc = "Jump to Mark" },
+			{ "<leader>so", "<cmd>Telescope vim_options<CR>", desc = "Options" },
+			{ "<leader>sR", "<cmd>Telescope resume<CR>", desc = "Resume" },
 		},
 		dependencies = {
 			{
@@ -40,19 +86,17 @@ return {
 			},
 			"nvim-telescope/telescope-ui-select.nvim",
 		},
-		config = function(_, opts)
-			local telescope = require("telescope")
+		config = function(_, _)
 			local actions = require("telescope.actions")
 			local trouble = require("trouble.sources.telescope")
 
 			require("telescope").setup({
 				extensions = {
 					fzf = {
-						fuzzy = true, -- false will only do exact matching
-						override_generic_sorter = true, -- override the generic sorter
-						override_file_sorter = true, -- override the file sorter
-						case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-						-- the default case_mode is "smart_case"
+						fuzzy = true,
+						override_generic_sorter = true,
+						override_file_sorter = true,
+						case_mode = "smart_case",
 					},
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown({
@@ -67,8 +111,8 @@ return {
 					prompt_prefix = " ",
 					selection_caret = "❯ ",
 					path_display = { "smart" },
-					layout_strategy = "bottom_pane",
-					layout_config = { bottom_pane = { height = 0.5 } },
+					layout_strategy = "vertical",
+					-- layout_config = { bottom_pane = { height = 0.5 } },
 					file_ignore_patterns = { "node_plugins/.*", "%.git/.", "package-lock.json" },
 					vimgrep_arguments = {
 						"rg",
@@ -86,7 +130,7 @@ return {
 							["<C-q>"] = function(...)
 								actions.send_to_qflist(...)
 							end,
-							["<M-q>"] = function(...)
+							["<C-s>"] = function(...)
 								actions.send_selected_to_qflist(...)
 							end,
 							["<C-j>"] = function(...)
@@ -110,7 +154,7 @@ return {
 							["<C-t>"] = trouble.open,
 						},
 						n = {
-							["q"] = function(...)
+							["<ESC>"] = function(...)
 								return actions.close(...)
 							end,
 							["t"] = trouble.open,
@@ -119,10 +163,9 @@ return {
 				},
 				pickers = {
 					builtin = {
-						theme = "ivy",
+						previewer = false,
 					},
 					buffers = {
-						theme = "ivy",
 						initial_mode = "normal",
 						mappings = {
 							i = {
@@ -134,41 +177,21 @@ return {
 						},
 					},
 					find_files = {
-						theme = "ivy",
 						hidden = true,
 					},
 					git_files = {
-						theme = "ivy",
 						hidden = true,
 						show_untracked = true,
 					},
-					git_status = {
-						theme = "ivy",
-					},
 					oldfiles = {
-						theme = "ivy",
 						previewer = false,
 					},
 					help_tags = {
-						theme = "ivy",
 						previewer = false,
 					},
-					lsp_references = {
-						theme = "ivy",
-					},
-					lsp_definitions = {
-						theme = "ivy",
-					},
-					notify = {
-						theme = "ivy",
-					},
 					live_grep = {
-						theme = "ivy",
 						hidden = true,
 						only_sort_text = true,
-						layout_config = {
-							height = 0.5,
-						},
 					},
 				},
 			})
@@ -177,4 +200,45 @@ return {
 			require("telescope").load_extension("notify")
 		end,
 	},
+	-- {
+	-- 	"ibhagwan/fzf-lua",
+	-- 	dependencies = { "nvim-tree/nvim-web-devicons" },
+	-- 	config = function()
+	-- 		local actions = require("fzf-lua.actions")
+	--
+	-- 		require("fzf-lua").setup({
+	-- 			grep = {
+	-- 				rg_opts = "--sort-files --hidden --column --line-number --no-heading "
+	-- 					.. "--color=never --smart-case -g '!{.git,node_modules}/*'",
+	-- 			},
+	-- 			actions = {
+	-- 				files = {
+	-- 					["default"] = actions.file_edit,
+	-- 					["ctrl-s"] = actions.file_split,
+	-- 					["ctrl-v"] = actions.file_vsplit,
+	-- 					["ctrl-t"] = actions.file_tabedit,
+	-- 					["ctrl-q"] = actions.file_sel_to_qf,
+	-- 				},
+	-- 			},
+	-- 		})
+	-- 		vim.keymap.set(
+	-- 			"n",
+	-- 			"<leader>ff",
+	-- 			"<cmd>lua require('fzf-lua').files()<CR>",
+	-- 			{ silent = true, desc = "Files" }
+	-- 		)
+	-- 		vim.keymap.set(
+	-- 			"n",
+	-- 			"<leader>fb",
+	-- 			"<cmd>lua require('fzf-lua').buffers()<CR>",
+	-- 			{ silent = true, desc = "Buffers" }
+	-- 		)
+	-- 		vim.keymap.set(
+	-- 			"n",
+	-- 			"<leader>fw",
+	-- 			"<cmd>lua require('fzf-lua').live_grep()<CR>",
+	-- 			{ silent = true, desc = "Buffers" }
+	-- 		)
+	-- 	end,
+	-- },
 }

@@ -55,6 +55,7 @@ zstyle ':completion:*' menu select
 
 export STARSHIP_CONFIG=~/.config/starship.toml
 eval "$(starship init zsh)"
+# eval "$(~/Projects/local/starship/target/release/starship init zsh)"
 
 # zsh-autosuggestions
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh

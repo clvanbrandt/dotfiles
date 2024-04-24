@@ -5,7 +5,7 @@ return {
 			require("mini.comment").setup()
 			require("mini.jump").setup()
 			require("mini.indentscope").setup()
-			require("mini.pairs").setup()
+			-- require("mini.pairs").setup()
 			require("mini.surround").setup()
 			require("mini.bracketed").setup({
 				window = { suffix = "" },
@@ -26,7 +26,7 @@ return {
 					trim_right = ">",
 				},
 			})
-			vim.keymap.set("n", "<leader>ftt", ":lua MiniFiles.open()<CR>", { desc = "File browser", silent = true })
+			vim.keymap.set("n", "<leader>ft", ":lua MiniFiles.open()<CR>", { desc = "File tree", silent = true })
 		end,
 	},
 }

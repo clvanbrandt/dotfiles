@@ -2,8 +2,6 @@ add_newline = false
 
 format = """
 $time\
-$kubernetes\
-$python\
 $username\
 $directory\
 $git_branch\
@@ -12,6 +10,10 @@ $git_state\
 $git_metrics\
 $git_status\
 $aws\
+$azure\
+$python\
+$terraform\
+$kubernetes\
 $character\
 """
 
@@ -28,12 +30,12 @@ show_always = true
 style_user = "blue"
 
 [character]
-success_symbol = "[|](bold red)"
+success_symbol = "[|](bold green)"
 error_symbol = "[|](bold red)"
 
 [directory]
 format = ":[$path]($style) "
-style = "bold purple"
+style = "bold red"
 
 [git_branch]
 format = "[$branch]($style) "
@@ -49,6 +51,14 @@ symbol = " "
 [kubernetes]
 disabled = false
 format = '[$symbol$context( \($namespace\))]($style) '
+style = "bold cyan"
 
 [python]
 format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+style = "purple bold"
+
+[terraform]
+format = '[$symbol $version \[$workspace\]]($style) '
+symbol = "󱁢"
+version_format = "v${raw}"
+hide_default_workspace = true
