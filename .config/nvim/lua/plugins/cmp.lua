@@ -45,8 +45,8 @@ return {
 					["<C-d>"] = cmp.mapping.scroll_docs(4),
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.abort(),
-					["<CR>"] = cmp.mapping.confirm({ select = false }),
-					["<S-CR>"] = cmp.mapping.confirm({ select = true }),
+					["<CR>"] = cmp.mapping.confirm({ select = true }),
+					["<S-CR>"] = cmp.mapping.confirm({ select = false }),
 					["<C-CR>"] = function(fallback)
 						cmp.abort()
 						fallback()
@@ -54,7 +54,7 @@ return {
 				}),
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
-					{ name = "buffer" },
+					{ name = "buffer", keyword_length = 3 },
 					{ name = "path" },
 					{ name = "luasnip" },
 					{ name = "nvim_lua" },
@@ -68,31 +68,27 @@ return {
 						return item
 					end,
 				},
-				experimental = {
-					ghost_text = {
-						hl_group = "LspCodeLens",
-					},
-				},
 			}
 		end,
 		config = function(_, opts)
 			local cmp = require("cmp")
 			cmp.setup(opts)
 
-			-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 			cmp.setup.cmdline({ "/", "?" }, {
 				mapping = cmp.mapping.preset.cmdline(),
 				sources = {
 					{ name = "buffer" },
 				},
 			})
-			-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+
 			cmp.setup.cmdline(":", {
 				mapping = cmp.mapping.preset.cmdline(),
 				sources = cmp.config.sources({
 					{ name = "path" },
 				}, {
-					{ name = "cmdline" },
+					{ name = "cmdline", option = {
+						ignore_cmds = { "Man", "!" },
+					} },
 				}),
 				matching = { disallow_symbol_nonprefix_matching = false },
 			})

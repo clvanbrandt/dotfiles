@@ -51,14 +51,6 @@ o.virtualedit = "block"
 o.iskeyword = o.iskeyword + "-"
 o.showtabline = 0
 
--- Listchars
--- vim.opt.list = true
--- vim.opt.listchars:append 'eol:↴'
--- vim.opt.listchars:append 'space:⋅'
-
--- Performance
--- o.lazyredraw = true
---
 vim.g.autoformat = true
 
 -- Search
@@ -103,9 +95,6 @@ vim.g.autoindent = true
 
 -- Older stuff
 vim.cmd([[
-    syntax on
-
-    set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
     noremap <C-q> :confirm qall<CR>
 
     " =============================================================================
@@ -117,9 +106,4 @@ vim.cmd([[
     set diffopt+=iwhite " No whitespace in vimdiff
     set diffopt+=algorithm:patience
     set diffopt+=indent-heuristic
-    set showcmd " Show (partial) command in status line.
-
-    " Show those damn hidden characters
-    " Verbose: set listchars=nbsp:¬,eol:¶,extends:»,precedes:«,trail:•
-    set listchars=nbsp:¬,extends:»,precedes:«,trail:•
 ]])

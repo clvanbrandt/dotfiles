@@ -1,3 +1,5 @@
+local Util = require("lazy.core.util")
+
 local function on_attach()
 	vim.api.nvim_create_autocmd("LspAttach", {
 		group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -16,7 +18,7 @@ local function on_attach()
 				vim.lsp.inlay_hint.enable(args.buf, true)
 			end
 
-			require("plugins.lsp.format").on_attach(client, buffer)
+			-- require("plugins.lsp.format").on_attach(client, buffer)
 			require("plugins.lsp.keymaps").on_attach(client, buffer)
 		end,
 	})
@@ -46,12 +48,6 @@ return {
 				update_in_insert = false,
 				virtual_text = { spacing = 4, prefix = "●" },
 				severity_sort = true,
-			},
-			-- Automatically format on save
-			autoformat = true,
-			format = {
-				formatting_options = nil,
-				timeout_ms = nil,
 			},
 			-- LSP Server Settings
 			servers = {
@@ -152,7 +148,7 @@ return {
 			local mlsp = require("mason-lspconfig")
 			local available = mlsp.get_available_servers()
 
-			local ensure_installed = { "lua_ls", "tsserver", "pyright", "eslint", "terraformls", "ruff", "ruff_lsp" }
+			local ensure_installed = { "lua_ls", "tsserver", "pyright", "terraformls", "ruff", "ruff_lsp" }
 			for server, server_opts in pairs(servers) do
 				if server_opts then
 					server_opts = server_opts == true and {} or server_opts
@@ -216,36 +212,73 @@ return {
 		end,
 	},
 	{
-		"nvimtools/none-ls.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		dependencies = {
-			"mason.nvim",
-			"nvimtools/none-ls-extras.nvim",
-		},
-		ft = { "" },
-		opts = function()
-			local nls = require("null-ls")
-			local format = nls.builtins.formatting
-			-- local diagnostics = nls.builtins.diagnostics
-			-- local ca = nls.builtins.code_actions
-
-			return {
-				should_attach = function(bufnr)
-					return true
-					-- 	return not vim.api.nvim_buf_get_name(bufnr):match("yaml")
+		"stevearc/conform.nvim",
+		opts = {},
+		config = function()
+			require("conform").setup({
+				format_on_save = function(bufnr)
+					-- Disable with a global or buffer-local variable
+					if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+						return
+					end
+					return { timeout_ms = 2000, lsp_fallback = true }
 				end,
-				sources = {
-					-- diagnostics.eslint,
-					-- diagnostics.flake8,
-					require("none-ls.code_actions.eslint"),
-					format.prettier,
-					-- format.prettierd,
-					format.stylua,
-					format.terraform_fmt,
-					-- format.isort,
-					-- format.black,
+				formatters_by_ft = {
+					lua = { "stylua" },
+					terraform = { "terraform_fmt" },
+					-- Use a sub-list to run only the first available formatter
+					javascript = { { "prettierd", "prettier" } },
 				},
+			})
+
+			vim.api.nvim_create_user_command("FormatDisable", function(args)
+				if args.bang then
+					vim.b.disable_autoformat = true
+				else
+					vim.g.disable_autoformat = true
+				end
+				Util.warn("Disabled format on save", { title = "Format" })
+			end, {
+				desc = "Disable autoformat-on-save",
+				bang = true,
+			})
+			vim.api.nvim_create_user_command("FormatEnable", function()
+				vim.b.disable_autoformat = false
+				vim.g.disable_autoformat = false
+				Util.info("Enabled format on save", { title = "Format" })
+			end, {
+				desc = "Re-enable autoformat-on-save",
+			})
+			vim.api.nvim_create_user_command("FormatToggle", function()
+				if vim.g.disable_autoformat then
+					vim.cmd("FormatEnable")
+				else
+					vim.cmd("FormatDisable")
+				end
+			end, {
+				desc = "Re-enable autoformat-on-save",
+			})
+
+			vim.keymap.set("n", "<leader>uf", function()
+				vim.cmd("FormatToggle")
+			end, { desc = "Toggle Format on Save" })
+
+			vim.keymap.set({ "n", "v" }, "<leader>cf", require("conform").format, { desc = "Format Buffer" })
+		end,
+	},
+	{
+		"mfussenegger/nvim-lint",
+		config = function(_, _)
+			require("lint").linters_by_ft = {
+				markdown = { "vale" },
+				typescript = { "eslint_d" },
+				javascript = { "eslint_d" },
 			}
+			vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+				callback = function()
+					require("lint").try_lint()
+				end,
+			})
 		end,
 	},
 }

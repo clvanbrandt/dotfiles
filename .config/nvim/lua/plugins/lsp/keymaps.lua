@@ -3,9 +3,6 @@ local M = {}
 M._keys = nil
 
 function M.on_attach(client, buffer)
-	local format = require("plugins.lsp.format").format
-	local toggle_format = require("plugins.lsp.format").toggle
-
 	local map = function(mode, key, cmd, desc)
 		if desc ~= nil then
 			vim.keymap.set(mode, key, cmd, { desc = desc, buffer = buffer, noremap = true, silent = true })
@@ -42,8 +39,6 @@ function M.on_attach(client, buffer)
 	map("n", "<leader>cC", vim.lsp.codelens.refresh, "Refresh & Display Codelens")
 
 	map("n", "<leader>rn", vim.lsp.buf.rename, "Rename Symbol")
-	map({ "n", "v" }, "<leader>cf", format, "Format Buffer")
-	map("n", "<leader>uf", toggle_format, "Toggle Format on Save")
 end
 
 function M.diagnostic_goto(next, severity)
