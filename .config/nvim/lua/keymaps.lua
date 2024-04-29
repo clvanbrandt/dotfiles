@@ -124,6 +124,12 @@ vim.keymap.set("n", "<leader>xQ", "<cmd>copen<cr>", { desc = "Quickfix List" })
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
+if vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint then
+	vim.keymap.set("n", "<leader>uh", function()
+		Util.toggle_inlay_hints()
+	end, { desc = "Toggle Inlay Hints" })
+end
+
 vim.keymap.set("n", "<leader>ui", function()
 	Util.toggle("list")
 end, { desc = "Toggle invisible characters" })

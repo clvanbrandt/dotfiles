@@ -102,7 +102,6 @@ vim.cmd([[
     " =============================================================================
     set vb t_vb= " No more beeps
     set synmaxcol=500
-    set laststatus=3
     set diffopt+=iwhite " No whitespace in vimdiff
     set diffopt+=algorithm:patience
     set diffopt+=indent-heuristic

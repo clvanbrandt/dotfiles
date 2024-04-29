@@ -1,6 +1,6 @@
 local Util = require("lazy.core.util")
 
-local function on_attach()
+local function on_attach(opts)
 	vim.api.nvim_create_autocmd("LspAttach", {
 		group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 		callback = function(args)
@@ -10,12 +10,17 @@ local function on_attach()
 			-- vim.api.nvim_buf_set_option(buffer, "tagfunc", "v:lua.vim.lsp.tagfunc")
 
 			local client = vim.lsp.get_client_by_id(args.data.client_id)
+			if client == nil then
+				return
+			end
+
 			if client.name == "ruff_lsp" then
+				---@diagnostic disable-next-line: inject-field
 				client.server_capabilities.hover = false
 			end
 
-			if vim.fn.has("nvim-0.10") == 1 and client.server_capabilities.inlayHintProvider then
-				vim.lsp.inlay_hint.enable(args.buf, true)
+			if vim.fn.has("nvim-0.10") == 1 and client.supports_method("textDocument/inlayHint") then
+				vim.lsp.inlay_hint.enable(opts.inlay_hints.enabled)
 			end
 
 			-- require("plugins.lsp.format").on_attach(client, buffer)
@@ -48,6 +53,9 @@ return {
 				update_in_insert = false,
 				virtual_text = { spacing = 4, prefix = "●" },
 				severity_sort = true,
+			},
+			inlay_hints = {
+				enabled = false,
 			},
 			-- LSP Server Settings
 			servers = {
@@ -111,7 +119,7 @@ return {
 		},
 		config = function(plugin, opts)
 			-- setup formatting and keymaps
-			on_attach()
+			on_attach(opts)
 
 			-- diagnostics
 			for name, icon in pairs(require("icons").diagnostics) do
@@ -270,9 +278,10 @@ return {
 		"mfussenegger/nvim-lint",
 		config = function(_, _)
 			require("lint").linters_by_ft = {
-				markdown = { "vale" },
 				typescript = { "eslint_d" },
+				typescriptreact = { "eslint_d" },
 				javascript = { "eslint_d" },
+				javascriptreact = { "eslint_d" },
 			}
 			vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 				callback = function()
