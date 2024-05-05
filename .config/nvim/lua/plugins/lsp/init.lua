@@ -234,6 +234,7 @@ return {
 				formatters_by_ft = {
 					lua = { "stylua" },
 					terraform = { "terraform_fmt" },
+					rust = { "rustfmt" },
 					-- Use a sub-list to run only the first available formatter
 					javascript = { { "prettierd", "prettier" } },
 				},

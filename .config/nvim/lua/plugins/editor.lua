@@ -39,6 +39,7 @@ return {
 			require("fidget").setup({})
 		end,
 	},
+	{ "shortcuts/no-neck-pain.nvim" },
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
