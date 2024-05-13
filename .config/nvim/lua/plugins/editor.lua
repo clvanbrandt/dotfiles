@@ -36,10 +36,27 @@ return {
 	{
 		"j-hui/fidget.nvim",
 		config = function()
-			require("fidget").setup({})
+			require("fidget").setup({
+				notification = {
+					window = {
+						winblend = 0,
+					},
+				},
+			})
 		end,
 	},
-	{ "shortcuts/no-neck-pain.nvim" },
+	{
+		"shortcuts/no-neck-pain.nvim",
+		config = function()
+			require("no-neck-pain").setup({
+				width = 120,
+				buffers = {
+					right = { enabled = false },
+				},
+			})
+			vim.keymap.set("n", "<leader>nnp", "<cmd>NoNeckPain<CR>", { desc = "NoNeckPain" })
+		end,
+	},
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",

@@ -1,0 +1,6 @@
+hint_mode: f
+buttons: h , .
+left: leftarrow
+up: uparrow
+down: downarrow
+right: rightarrow

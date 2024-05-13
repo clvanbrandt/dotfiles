@@ -27,6 +27,20 @@ return {
 	{
 		"vimpostor/vim-tpipeline",
 	},
+	-- {
+	-- 	"freddiehaddad/feline.nvim",
+	-- 	opts = {},
+	-- 	config = function(_, opts)
+	-- 		local ctp_feline = require("catppuccin.groups.integrations.feline")
+	-- 		ctp_feline.setup()
+	--
+	-- 		require("feline").setup({
+	-- 			components = ctp_feline.get(),
+	-- 		})
+	-- 		-- require("feline").use_theme("catpuccin") -- to use a custom theme
+	-- 		--
+	-- 	end,
+	-- },
 	{
 		"nvim-lualine/lualine.nvim",
 		opts = {
@@ -46,6 +60,7 @@ return {
 						"spectre_panel",
 						"toggleterm",
 						"Neogit",
+						"undotree",
 					},
 					winbar = {},
 				},

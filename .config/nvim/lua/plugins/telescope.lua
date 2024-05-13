@@ -77,6 +77,7 @@ return {
 			{ "<leader>sm", "<cmd>Telescope marks<CR>", desc = "Jump to Mark" },
 			{ "<leader>so", "<cmd>Telescope vim_options<CR>", desc = "Options" },
 			{ "<leader>sR", "<cmd>Telescope resume<CR>", desc = "Resume" },
+			{ '<leader>s"', "<cmd>Telescope registers<CR>", desc = "Resume" },
 		},
 		dependencies = {
 			{

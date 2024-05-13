@@ -30,12 +30,11 @@ local function on_attach(opts)
 end
 
 return {
+	{ "folke/neodev.nvim", opts = {} },
 	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
-			-- { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
-			-- { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
 			{
 				"williamboman/mason.nvim",
 				cmd = "Mason",
@@ -59,6 +58,7 @@ return {
 			},
 			-- LSP Server Settings
 			servers = {
+				gdscript = {},
 				jsonls = {},
 				lua_ls = {
 					settings = {
@@ -131,6 +131,7 @@ return {
 			local servers = opts.servers
 			local capabilities =
 				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
 			capabilities.textDocument.foldingRange = {
 				dynamicRegistration = false,
 				lineFoldingOnly = true,
@@ -172,6 +173,12 @@ return {
 			require("mason").setup({})
 			require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
 			require("mason-lspconfig").setup_handlers({ setup })
+		end,
+	},
+	{
+		"habamax/vim-godot",
+		init = function()
+			vim.g.godot_executable = "/Applications/Godot.app"
 		end,
 	},
 	{
@@ -232,9 +239,11 @@ return {
 					return { timeout_ms = 2000, lsp_fallback = true }
 				end,
 				formatters_by_ft = {
+					gdscript = { "gdformat" },
 					lua = { "stylua" },
 					terraform = { "terraform_fmt" },
 					rust = { "rustfmt" },
+					python = { "ruff_format", "ruff_fix" },
 					-- Use a sub-list to run only the first available formatter
 					javascript = { { "prettierd", "prettier" } },
 				},
@@ -283,6 +292,7 @@ return {
 				typescriptreact = { "eslint_d" },
 				javascript = { "eslint_d" },
 				javascriptreact = { "eslint_d" },
+				python = { "ruff" },
 			}
 			vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 				callback = function()

@@ -45,6 +45,21 @@ return {
 			if config.colorscheme == "catppuccin" then
 				vim.cmd.colorscheme(config.variant)
 			end
+			require("catppuccin").setup({
+				integrations = {
+					cmp = true,
+					gitsigns = true,
+					treesitter = true,
+					notify = true,
+					fidget = true,
+					harpoon = true,
+					noice = true,
+					mini = {
+						enabled = true,
+					},
+					which_key = true,
+				},
+			})
 		end,
 	},
 }

@@ -11,7 +11,8 @@ return {
 			-- "nvim-treesitter/nvim-treesitter-context",
 		},
 		opts = {
-			ensure_installed = "all",
+			-- ensure_installed = "all",
+			auto_install = true,
 			highlight = {
 				enable = true, -- false will disable the whole extension
 				additional_vim_regex_highlighting = true,

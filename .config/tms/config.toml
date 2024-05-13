@@ -10,3 +10,4 @@ depth = 10
 
 [shortcuts]
 q = "cancel"
+"ctrl-d" = "delete"

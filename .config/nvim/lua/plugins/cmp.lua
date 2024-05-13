@@ -1,3 +1,5 @@
+local util = require("util")
+
 return {
 	{
 		"L3MON4D3/LuaSnip",
@@ -61,10 +63,10 @@ return {
 				}),
 				formatting = {
 					format = function(_, item)
-						local icons = require("icons").kinds
-						if icons[item.kind] then
-							item.kind = icons[item.kind] .. item.kind
-						end
+						-- local icons = require("icons").kinds
+						-- if icons[item.kind] then
+						-- 	item.kind = icons[item.kind] .. item.kind
+						-- end
 						return item
 					end,
 				},

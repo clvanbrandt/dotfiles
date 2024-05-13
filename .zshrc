@@ -15,7 +15,7 @@ export SAVEHIST=100000
 export HISTSIZE=100000
 export EDITOR='nvim'
 export SUDO_EDIOTR='nvim'
-export TERM="alacritty"
+# export TERM="alacritty"
 
 # Some keybinds
 VIM_MODE_VICMD_KEY='^J'
