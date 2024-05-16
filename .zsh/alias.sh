@@ -46,9 +46,6 @@ fi
 alias kcuc='kubectl config use-context'
 alias kcucc='kubectl config unset current-context'
 
-# Python
-alias python='~/.pyenv/shims/python'
-
 # Docker
 # alias docker='sudo docker'
 # alias docker-compose='sudo docker-compose'

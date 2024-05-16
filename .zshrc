@@ -84,3 +84,7 @@ if command_exists zoxide; then
   eval "$(zoxide init zsh)"
 fi 
 
+
+if command_exists atuin; then
+  eval "$(atuin init zsh --disable-up-arrow)"
+fi

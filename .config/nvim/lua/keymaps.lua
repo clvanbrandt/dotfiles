@@ -40,17 +40,6 @@ vim.keymap.set("n", "qq", "q", { noremap = true })
 
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
--- Ctrl-j to escape
--- vim.keymap.set("n", "<C-j>", "<Esc>")
-vim.keymap.set("i", "<C-j>", "<Esc>")
-vim.keymap.set("v", "<C-j>", "<Esc>")
-vim.keymap.set("s", "<C-j>", "<Esc>")
-vim.keymap.set("x", "<C-j>", "<Esc>")
-vim.keymap.set("c", "<C-j>", "<C-c>")
-vim.keymap.set("o", "<C-j>", "<Esc>")
-vim.keymap.set("l", "<C-j>", "<Esc>")
-vim.keymap.set("t", "<C-j>", "<Esc>")
-
 -- Ctrl+h to stop searching
 vim.keymap.set("v", "<C-h>", ":nohlsearch<cr>", { silent = true })
 vim.keymap.set("n", "<C-h>", ":nohlsearch<cr>", { silent = true })
@@ -99,10 +88,10 @@ vim.keymap.set("n", "<leader>wi", "<C-W><C-L>", { desc = "Go to right window" })
 vim.keymap.set("n", "<leader>wm", "<C-W><C-H>", { desc = "Go to left window" })
 
 -- Split resize
-vim.keymap.set("n", "<C-Up>", ":resize +2<CR>", { silent = true })
-vim.keymap.set("n", "<C-Down>", ":resize -2<CR>", { silent = true })
-vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", { silent = true })
-vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", { silent = true })
+vim.keymap.set("n", "<C-S-Up>", ":resize +2<CR>", { silent = true })
+vim.keymap.set("n", "<C-S-Down>", ":resize -2<CR>", { silent = true })
+vim.keymap.set("n", "<C-S-Left>", ":vertical resize -2<CR>", { silent = true })
+vim.keymap.set("n", "<C-S-Right>", ":vertical resize +2<CR>", { silent = true })
 
 --<leader><leader> toggles between buffer
 vim.keymap.set("n", "<leader><leader>", "<c-^>", { desc = "Last buffer" })

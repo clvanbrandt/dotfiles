@@ -15,13 +15,13 @@ function M.on_attach(client, buffer)
 
 	map("n", "<leader>il", "<cmd>LspInfo<cr>")
 
-	map("n", "gd", "<cmd>Telescope lsp_definitions<cr>")
-	map("n", "gr", "<cmd>Telescope lsp_references<cr>")
-	map("n", "gi", "<cmd>Telescope lsp_implementations<cr>")
-	map("n", "gt", "<cmd>Telescope lsp_type_definitions<cr>")
-	map("n", "gD", vim.lsp.buf.declaration)
+	map("n", "gd", "<cmd>Telescope lsp_definitions<cr>", "Go to definitions")
+	map("n", "gr", "<cmd>Telescope lsp_references<cr>", "Go to references")
+	map("n", "gi", "<cmd>Telescope lsp_implementations<cr>", "Go to implementations")
+	map("n", "gt", "<cmd>Telescope lsp_type_definitions<cr>", "Go to type definitions")
+	map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
 
-	map("n", "K", vim.lsp.buf.hover)
+	-- map("n", "K", vim.lsp.buf.hover, "Hover")
 	map("n", "gK", vim.lsp.buf.signature_help, "Signature help")
 	map("i", "<c-k>", vim.lsp.buf.signature_help, "Signature help")
 

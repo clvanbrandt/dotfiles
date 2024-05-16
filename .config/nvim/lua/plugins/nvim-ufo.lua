@@ -9,8 +9,8 @@ return {
 			vim.o.foldenable = true
 		end,
 		config = function(opts)
-			vim.keymap.set("n", "zR", require("ufo").openAllFolds)
-			vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+			vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open all folds" })
+			vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Close all folds" })
 
 			vim.keymap.set("n", "K", function()
 				local winid = require("ufo").peekFoldedLinesUnderCursor()

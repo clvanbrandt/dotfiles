@@ -1,13 +1,13 @@
 return {
-	{
-		"folke/which-key.nvim",
-		event = "VeryLazy",
-		init = function()
-			vim.o.timeout = true
-			vim.o.timeoutlen = 1000
-		end,
-		opts = {},
-	},
+	-- {
+	-- 	"folke/which-key.nvim",
+	-- 	event = "VeryLazy",
+	-- 	init = function()
+	-- 		vim.o.timeout = true
+	-- 		vim.o.timeoutlen = 1000
+	-- 	end,
+	-- 	opts = {},
+	-- },
 	{
 		"mbbill/undotree",
 		config = function()
@@ -131,7 +131,25 @@ return {
 	{ "NoahTheDuke/vim-just" },
 	{
 		"christoomey/vim-tmux-navigator",
-		lazy = false,
+		cmd = {
+			"TmuxNavigateLeft",
+			"TmuxNavigateDown",
+			"TmuxNavigateUp",
+			"TmuxNavigateRight",
+		},
+		keys = {
+			{ "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+			{ "<c-Left>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+			{ "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+			{ "<c-Down>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+			{ "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+			{ "<c-Up>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+			{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+			{ "<c-Right>", "<cmd>TmuxNavigateRight<cr>" },
+		},
+		init = function()
+			vim.g.tmux_navigator_save_on_switch = 2
+		end,
 	},
 	{
 		"windwp/nvim-autopairs",
@@ -178,7 +196,7 @@ return {
 			},
 		},
 		opts = {
-			-- preview = { type = "floating" },
+			preview = { type = "floating" },
 			auto_preview = false,
 			focus = true,
 		},
