@@ -23,7 +23,7 @@ function M.on_attach(client, buffer)
 
 	-- map("n", "K", vim.lsp.buf.hover, "Hover")
 	map("n", "gK", vim.lsp.buf.signature_help, "Signature help")
-	map("i", "<c-k>", vim.lsp.buf.signature_help, "Signature help")
+	-- map("i", "<c-k>", vim.lsp.buf.signature_help, "Signature help")
 
 	if not require("util").has("mini.bracketed") then
 		map("n", "]d", M.diagnostic_goto(true), "Diagnostic forward")

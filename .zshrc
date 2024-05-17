@@ -8,7 +8,7 @@ eval "$(starship init zsh)"
 # eval "$(~/Projects/local/starship/target/release/starship init zsh)"
 
 # Keybindings
-# bindkey -e
+bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey '^[w' kill-region
@@ -33,6 +33,10 @@ fpath+=/opt/homebrew/share/zsh/site-functions
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+zstyle ':completion:*:git-checkout:*' sort false
 
 # Editor
 export EDITOR='nvim'

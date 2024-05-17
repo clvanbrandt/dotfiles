@@ -31,11 +31,11 @@ alias envim='vi ${HOME}/.config/nvim/init.lua'
 alias essh='vi ${HOME}/.ssh/config'
 alias eemacs='vi ${HOME}/.emacs.d/init.el'
 
-if command -v exa 1>/dev/null 2>&1; then
-	alias l='exa'
-	alias ls='exa'
-	alias ll='exa -l'
-	alias lll='exa -la'
+if command -v eza 1>/dev/null 2>&1; then
+	alias l='eza'
+	alias ls='eza'
+	alias ll='eza -l'
+	alias lll='eza -la'
 else
 	alias l='ls'
 	alias ll='ls -l'

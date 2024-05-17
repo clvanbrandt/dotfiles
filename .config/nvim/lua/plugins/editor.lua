@@ -90,15 +90,15 @@ return {
 		},
 		config = function(_, opts)
 			require("noice").setup(opts)
-			vim.keymap.set({ "n", "i", "s" }, "<c-d>", function()
+			vim.keymap.set({ "n", "i", "s" }, "<c-f>", function()
 				if not require("noice.lsp").scroll(4) then
-					return "<c-d>"
+					return "<c-f>"
 				end
 			end, { silent = true, expr = true })
 
-			vim.keymap.set({ "n", "i", "s" }, "<c-u>", function()
+			vim.keymap.set({ "n", "i", "s" }, "<c-b>", function()
 				if not require("noice.lsp").scroll(-4) then
-					return "<c-u>"
+					return "<c-b>"
 				end
 			end, { silent = true, expr = true })
 		end,

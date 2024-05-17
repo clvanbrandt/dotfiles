@@ -68,7 +68,7 @@ end
 local diagnostics_enabled = true
 function M.toggle_diagnostics()
 	if vim.diagnostic.is_enabled then
-		diagnostics_enabled = not vim.diagnostic.is_enabled()
+		diagnostics_enabled = vim.diagnostic.is_enabled()
 	end
 
 	diagnostics_enabled = not diagnostics_enabled
@@ -93,6 +93,11 @@ function M.toggle_inlay_hints(buf, value)
 			value = not ih.is_enabled(buf)
 		end
 		ih.enable(value, { bufnr = buf })
+		if value then
+			Util.info("Enabled inlay hints", { title = "Inlay Hints" })
+		else
+			Util.warn("Disabled inlay hints", { title = "Inlay Hints" })
+		end
 	end
 end
 

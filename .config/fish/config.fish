@@ -158,11 +158,11 @@ else if command -v pacman > /dev/null
 	abbr -a up 'sudo pacman -Syu'
 end
 
-if command -v exa > /dev/null
-	abbr -a l 'exa'
-	abbr -a ls 'exa'
-	abbr -a ll 'exa -l'
-	abbr -a lll 'exa -la'
+if command -v eza > /dev/null
+	abbr -a l 'eza'
+	abbr -a ls 'eza'
+	abbr -a ll 'eza -l'
+	abbr -a lll 'eza -la'
 else
 	abbr -a l 'ls'
 	abbr -a ll 'ls -l'
