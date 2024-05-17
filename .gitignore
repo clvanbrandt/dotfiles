@@ -1,8 +1,3 @@
 .DS_Store
 .dir-locals.el
-# ./.zsh/zsh-256color/
-# ./.zsh/zsh-vim-mode/
-# ./.zsh/zsh-completions/
-# ./.zsh/zsh-autosuggestions/
-# ./.zsh/zsh-syntax-highlighting/
-# ./.zsh/zsh-history-substring-search/
+.zsh/plugins.zsh

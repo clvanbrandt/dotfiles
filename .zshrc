@@ -1,27 +1,50 @@
-autoload bashcompinit && bashcompinit
-autoload -Uz compinit && compinit
+# Plugin management
+source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
+antidote load "${HOME}/.zsh/plugins.txt"
 
-setopt share_history
+# Prompt
+export STARSHIP_CONFIG=~/.config/starship.toml
+eval "$(starship init zsh)"
+# eval "$(~/Projects/local/starship/target/release/starship init zsh)"
 
-# Do not save duplicate commands to history
-setopt HIST_IGNORE_ALL_DUPS
+# Keybindings
+# bindkey -e
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+bindkey '^[w' kill-region
 
-# Do not find duplicate command when searching
-setopt HIST_FIND_NO_DUPS
+# History 
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
 
 export HISTORY_IGNORE="(l[l ll]|cd|pwd|exit|h[s]|history|cd -|cd ..|cd|j|z|vi|e|vi *|l[alsh]#( *)#)"
 export HISTFILE="${HOME}/.zsh_history"
-export SAVEHIST=100000
-export HISTSIZE=100000
+export SAVEHIST=10000
+export HISTSIZE=10000
+
+# Completion
+fpath+=~/.zfunc
+fpath+=/opt/homebrew/share/zsh/site-functions
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+
+# Editor
 export EDITOR='nvim'
-export SUDO_EDIOTR='nvim'
+export SUDO_EDITOR='nvim'
 # export TERM="alacritty"
 
-# Some keybinds
-VIM_MODE_VICMD_KEY='^J'
-
+# Alias
 source ~/.zsh/alias.sh
-# source ~/.zsh/tmux.sh
+
+# More completion
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
 
 function command_exists() {
     return $(command -v $1 1>/dev/null 2>&1)
@@ -50,28 +73,6 @@ if command_exists fuck; then
   eval $(thefuck --alias)
 fi
 
-fpath+=~/.zfunc
-fpath+=/opt/homebrew/share/zsh/site-functions
-zstyle ':completion:*' menu select
-
-export STARSHIP_CONFIG=~/.config/starship.toml
-eval "$(starship init zsh)"
-# eval "$(~/Projects/local/starship/target/release/starship init zsh)"
-
-# zsh-autosuggestions
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-# zsh-syntax-highlighting
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# zsh completions
-fpath=(~/.zsh/zsh-completions/src $fpath)
-# zsh-history-substring-search
-source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
-# zsh-vim-mode
-# In .zshrc
-source "$HOME/.zsh/zsh-vim-mode/zsh-vim-mode.plugin.zsh"
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # AWS
 complete -C '/usr/local/bin/aws_completer' aws
 
@@ -80,11 +81,15 @@ if command_exists kubectl; then
   source <(kubectl completion zsh)
 fi
 
+
+# Shell integration
+eval "$(fzf --zsh)"
+
 if command_exists zoxide; then
   eval "$(zoxide init zsh)"
 fi 
 
+# if command_exists atuin; then
+#   eval "$(atuin init zsh --disable-up-arrow)"
+# fi
 
-if command_exists atuin; then
-  eval "$(atuin init zsh --disable-up-arrow)"
-fi

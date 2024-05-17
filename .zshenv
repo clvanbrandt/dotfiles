@@ -2,7 +2,6 @@ export DOOMDIR="$HOME/dotfiles/.doom.d/"
 # Local
 export PATH="$HOME/.local/bin:${PATH}"
 export PATH="$HOME/.bin:${PATH}"
-export PATH="/opt/homebrew/bin:${PATH}"
 
 # Rbenv
 export RBENV_ROOT="$HOME/.rbenv"
