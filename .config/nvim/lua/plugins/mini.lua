@@ -2,7 +2,6 @@ return {
 	{
 		"echasnovski/mini.nvim",
 		config = function()
-			require("mini.comment").setup()
 			require("mini.jump").setup()
 			require("mini.indentscope").setup()
 			require("mini.surround").setup()

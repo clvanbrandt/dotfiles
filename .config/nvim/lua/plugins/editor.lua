@@ -10,9 +10,10 @@ return {
 	-- },
 	{
 		"mbbill/undotree",
-		config = function()
-			vim.keymap.set("n", "<leader>ut", vim.cmd.UndotreeToggle, { desc = "Toggle undo tree" })
-		end,
+		cmd = { "UndotreeToggle" },
+		keys = {
+			{ "<leader>ut", vim.cmd.UndotreeToggle, desc = "Toggle undo tree" },
+		},
 	},
 	{
 		"windwp/nvim-spectre",
@@ -47,6 +48,10 @@ return {
 	},
 	{
 		"shortcuts/no-neck-pain.nvim",
+		cmd = { "NoNeckPain" },
+		keys = {
+			{ "<leader>nnp", "<cmd>NoNeckPain<CR>", desc = "NoNeckPain" },
+		},
 		config = function()
 			require("no-neck-pain").setup({
 				width = 120,
@@ -54,7 +59,6 @@ return {
 					right = { enabled = false },
 				},
 			})
-			vim.keymap.set("n", "<leader>nnp", "<cmd>NoNeckPain<CR>", { desc = "NoNeckPain" })
 		end,
 	},
 	{
@@ -128,7 +132,7 @@ return {
 	-- {
 	-- 	"stevearc/dressing.nvim",
 	-- },
-	{ "NoahTheDuke/vim-just" },
+	{ "NoahTheDuke/vim-just", ft = { "just" } },
 	{
 		"christoomey/vim-tmux-navigator",
 		cmd = {

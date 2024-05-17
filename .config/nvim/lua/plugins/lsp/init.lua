@@ -30,7 +30,7 @@ local function on_attach(opts)
 end
 
 return {
-	{ "folke/neodev.nvim", opts = {} },
+	{ "folke/neodev.nvim", ft = { "lua" }, opts = {} },
 	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
@@ -43,7 +43,6 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 			"jose-elias-alvarez/nvim-lsp-ts-utils",
 			"nvim-lua/lsp_extensions.nvim",
-			"towolf/vim-helm",
 		},
 		opts = {
 			-- options for vim.diagnostic.config()
@@ -177,7 +176,8 @@ return {
 	},
 	{
 		"habamax/vim-godot",
-		init = function()
+		ft = { "gdscript" },
+		config = function()
 			vim.g.godot_executable = "/Applications/Godot.app"
 		end,
 	},
@@ -210,7 +210,7 @@ return {
 	{
 		"scalameta/nvim-metals",
 		ft = { "scala", "sbt", "java" },
-		init = function()
+		config = function()
 			local metals_config = require("metals").bare_config()
 			metals_config.init_options.statusBarProvider = "off"
 			metals_config.on_attach = on_attach
@@ -229,6 +229,8 @@ return {
 	{
 		"stevearc/conform.nvim",
 		opts = {},
+		event = { "BufWritePre" },
+		cmd = { "ConformInfo" },
 		config = function()
 			require("conform").setup({
 				format_on_save = function(bufnr)

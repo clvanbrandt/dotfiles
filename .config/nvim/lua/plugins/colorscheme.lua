@@ -3,7 +3,7 @@ local config = require("config")
 return {
 	{
 		"scottmckendry/cyberdream.nvim",
-		lazy = false,
+		enabled = false,
 		priority = 1000,
 		config = function()
 			require("cyberdream").setup({
@@ -19,7 +19,7 @@ return {
 	},
 	{
 		"folke/tokyonight.nvim",
-		lazy = false,
+		enabled = false,
 		config = function()
 			if config.colorscheme == "tokyonight" then
 				vim.cmd([[colorscheme tokyonight]])
@@ -28,7 +28,7 @@ return {
 	},
 	{
 		"projekt0n/github-nvim-theme",
-		lazy = false,
+		enabled = false,
 		config = function()
 			if config.colorscheme == "github" then
 				require("github-theme").setup({
@@ -40,7 +40,8 @@ return {
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
-		lazy = false,
+		enabled = true,
+		priority = 1000,
 		config = function()
 			if config.colorscheme == "catppuccin" then
 				vim.cmd.colorscheme(config.variant)

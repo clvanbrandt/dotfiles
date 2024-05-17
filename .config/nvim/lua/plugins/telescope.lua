@@ -39,8 +39,7 @@ local function project_files()
 
 	local cwd = vim.fn.getcwd()
 	if is_inside_work_tree[cwd] == nil then
-		vim.fn.system("git rev-parse --is-inside-work-tree")
-		is_inside_work_tree[cwd] = vim.v.shell_error == 0
+		is_inside_work_tree[cwd] = util.is_git_repo
 	end
 
 	if is_inside_work_tree[cwd] then
@@ -97,7 +96,7 @@ return {
 			{ "<leader>sm", "<cmd>Telescope marks<CR>", desc = "Jump to Mark" },
 			{ "<leader>so", "<cmd>Telescope vim_options<CR>", desc = "Options" },
 			{ "<leader>sR", "<cmd>Telescope resume<CR>", desc = "Resume" },
-			{ '<leader>s"', "<cmd>Telescope registers<CR>", desc = "Resume" },
+			{ '<leader>s"', "<cmd>Telescope registers<CR>", desc = "Registers" },
 		},
 		dependencies = {
 			{
@@ -153,7 +152,7 @@ return {
 						horizontal = {
 							size = {
 								width = "90%",
-								height = "80%",
+								height = "90%",
 							},
 						},
 						vertical = {
