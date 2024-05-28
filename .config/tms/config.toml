@@ -1,11 +1,11 @@
 session_sort_order = "LastAttached"
 
 [[search_dirs]]
-path = "/home/clvanbrandt/dotfiles"
+path = "~/dotfiles"
 depth = 10
 
 [[search_dirs]]
-path = "/home/clvanbrandt/Projects"
+path = "~/Projects"
 depth = 10
 
 [shortcuts]

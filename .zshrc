@@ -1,5 +1,10 @@
+# More completion
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+
 # Plugin management
 source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
+export NVM_LAZY=1
 antidote load "${HOME}/.zsh/plugins.txt"
 
 # Prompt
@@ -8,12 +13,12 @@ eval "$(starship init zsh)"
 # eval "$(~/Projects/local/starship/target/release/starship init zsh)"
 
 # Keybindings
-bindkey -e
+# bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey '^[w' kill-region
 
-# History 
+# History
 setopt appendhistory
 setopt sharehistory
 setopt hist_ignore_space
@@ -46,15 +51,12 @@ export SUDO_EDITOR='nvim'
 # Alias
 source ~/.zsh/alias.sh
 
-# More completion
-autoload bashcompinit && bashcompinit
-autoload -Uz compinit && compinit
 
 function command_exists() {
     return $(command -v $1 1>/dev/null 2>&1)
 }
 
-for cmdenv in pyenv goenv jenv rbenv scalaenv 
+for cmdenv in pyenv jenv scalenv # goenv rbenv scalaenv
 do
     if command_exists $cmdenv; then
         eval "$($cmdenv init -)"
@@ -69,29 +71,20 @@ if command_exists aws-vault; then
     eval "$(aws-vault --completion-script-zsh)"
 fi
 
-if command_exists cz; then
-  eval "$(register-python-argcomplete cz)"
-fi
+# if command_exists cz; then
+#   eval "$(register-python-argcomplete cz)"
+# fi
 
 if command_exists fuck; then
   eval $(thefuck --alias)
 fi
-
-# AWS
-complete -C '/usr/local/bin/aws_completer' aws
-
-# Kubectl
-if command_exists kubectl; then
-  source <(kubectl completion zsh)
-fi
-
 
 # Shell integration
 eval "$(fzf --zsh)"
 
 if command_exists zoxide; then
   eval "$(zoxide init zsh)"
-fi 
+fi
 
 # if command_exists atuin; then
 #   eval "$(atuin init zsh --disable-up-arrow)"

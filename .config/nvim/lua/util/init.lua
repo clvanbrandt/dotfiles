@@ -4,6 +4,14 @@ local M = {}
 
 M.root_patterns = { ".git", "lua", ".gitignore" }
 
+function M.info(...)
+	Util.info(...)
+end
+
+function M.warn(...)
+	Util.warn(...)
+end
+
 function M.map(mode, key, cmd, opts)
 	vim.keymap.set(mode, key, cmd, opts or { noremap = true, silent = true })
 end
@@ -42,14 +50,14 @@ function M.toggle(option, silent, values)
 		else
 			vim.opt_local[option] = values[1]
 		end
-		return Util.info("Set " .. option .. " to " .. vim.opt_local[option]:get(), { title = "Option" })
+		return M.info("Set " .. option .. " to " .. vim.opt_local[option]:get(), { title = "Option" })
 	end
 	vim.opt_local[option] = not vim.opt_local[option]:get()
 	if not silent then
 		if vim.opt_local[option]:get() then
-			Util.info("Enabled " .. option, { title = "Option" })
+			M.info("Enabled " .. option, { title = "Option" })
 		else
-			Util.warn("Disabled " .. option, { title = "Option" })
+			M.warn("Disabled " .. option, { title = "Option" })
 		end
 	end
 end
@@ -75,10 +83,10 @@ function M.toggle_diagnostics()
 
 	if diagnostics_enabled then
 		vim.diagnostic.enable()
-		Util.info("Enabled diagnostics", { title = "Diagnostics" })
+		M.info("Enabled diagnostics", { title = "Diagnostics" })
 	else
 		vim.diagnostic.enable(false)
-		Util.warn("Disabled diagnostics", { title = "Diagnostics" })
+		M.warn("Disabled diagnostics", { title = "Diagnostics" })
 	end
 end
 
@@ -94,9 +102,9 @@ function M.toggle_inlay_hints(buf, value)
 		end
 		ih.enable(value, { bufnr = buf })
 		if value then
-			Util.info("Enabled inlay hints", { title = "Inlay Hints" })
+			M.info("Enabled inlay hints", { title = "Inlay Hints" })
 		else
-			Util.warn("Disabled inlay hints", { title = "Inlay Hints" })
+			M.warn("Disabled inlay hints", { title = "Inlay Hints" })
 		end
 	end
 end

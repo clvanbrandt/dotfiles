@@ -35,8 +35,6 @@ o.pumblend = 10 -- Popup menu transparency
 o.pumheight = 8 -- Popup menu height
 
 -- General
-o.clipboard = "unnamedplus"
-
 o.hidden = true
 o.joinspaces = false
 o.mouse = "a"

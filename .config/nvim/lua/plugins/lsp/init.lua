@@ -1,29 +1,23 @@
-local Util = require("lazy.core.util")
-
 local function on_attach(opts)
 	vim.api.nvim_create_autocmd("LspAttach", {
 		group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 		callback = function(args)
 			local buffer = args.buf
-			-- vim.api.nvim_buf_set_option(buffer, "formatexpr", "v:lua.vim.lsp.formatexpr()")
-			-- vim.api.nvim_buf_set_option(buffer, "omnifunc", "v:lua.vim.lsp.omnifunc")
-			-- vim.api.nvim_buf_set_option(buffer, "tagfunc", "v:lua.vim.lsp.tagfunc")
 
 			local client = vim.lsp.get_client_by_id(args.data.client_id)
 			if client == nil then
 				return
 			end
 
-			if client.name == "ruff_lsp" then
+			if client.name == "ruff" then
 				---@diagnostic disable-next-line: inject-field
 				client.server_capabilities.hover = false
 			end
 
-			if vim.fn.has("nvim-0.10") == 1 and client.supports_method("textDocument/inlayHint") then
+			if client.supports_method("textDocument/inlayHint") then
 				vim.lsp.inlay_hint.enable(opts.inlay_hints.enabled)
 			end
 
-			-- require("plugins.lsp.format").on_attach(client, buffer)
 			require("plugins.lsp.keymaps").on_attach(client, buffer)
 		end,
 	})
@@ -45,7 +39,6 @@ return {
 			"nvim-lua/lsp_extensions.nvim",
 		},
 		opts = {
-			-- options for vim.diagnostic.config()
 			diagnostics = {
 				underline = true,
 				update_in_insert = false,
@@ -53,7 +46,7 @@ return {
 				severity_sort = true,
 			},
 			inlay_hints = {
-				enabled = false,
+				enabled = true,
 			},
 			-- LSP Server Settings
 			servers = {
@@ -156,7 +149,7 @@ return {
 			local mlsp = require("mason-lspconfig")
 			local available = mlsp.get_available_servers()
 
-			local ensure_installed = { "lua_ls", "tsserver", "pyright", "terraformls", "ruff", "ruff_lsp" }
+			local ensure_installed = { "lua_ls", "tsserver", "pyright", "terraformls", "ruff" }
 			for server, server_opts in pairs(servers) do
 				if server_opts then
 					server_opts = server_opts == true and {} or server_opts
@@ -250,38 +243,6 @@ return {
 					javascript = { { "prettierd", "prettier" } },
 				},
 			})
-
-			vim.api.nvim_create_user_command("FormatDisable", function(args)
-				if args.bang then
-					vim.b.disable_autoformat = true
-				else
-					vim.g.disable_autoformat = true
-				end
-				Util.warn("Disabled format on save", { title = "Format" })
-			end, {
-				desc = "Disable autoformat-on-save",
-				bang = true,
-			})
-			vim.api.nvim_create_user_command("FormatEnable", function()
-				vim.b.disable_autoformat = false
-				vim.g.disable_autoformat = false
-				Util.info("Enabled format on save", { title = "Format" })
-			end, {
-				desc = "Re-enable autoformat-on-save",
-			})
-			vim.api.nvim_create_user_command("FormatToggle", function()
-				if vim.g.disable_autoformat then
-					vim.cmd("FormatEnable")
-				else
-					vim.cmd("FormatDisable")
-				end
-			end, {
-				desc = "Re-enable autoformat-on-save",
-			})
-
-			vim.keymap.set("n", "<leader>uf", function()
-				vim.cmd("FormatToggle")
-			end, { desc = "Toggle Format on Save" })
 
 			vim.keymap.set({ "n", "v" }, "<leader>cf", require("conform").format, { desc = "Format Buffer" })
 		end,

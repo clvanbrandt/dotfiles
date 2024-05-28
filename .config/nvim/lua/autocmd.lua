@@ -4,7 +4,7 @@ vim.cmd([[
     augroup ftplugin
         au!
         " au BufWinEnter * set formatoptions-=cro
-        au BufNewFile,BufRead *.tf setl filetype=terraform 
+        au BufNewFile,BufRead *.tf setl filetype=terraform
         au BufNewFile,BufRead *.json setl filetype=jsonc " To allow comments on json files
         au FileType man setl laststatus=0 noruler
         au FileType markdown setl wrap linebreak conceallevel=2
@@ -88,6 +88,12 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.opt_local.wrap = true
 		vim.opt_local.spell = true
 	end,
+})
+
+-- Trim whitespaces
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+	pattern = { "*" },
+	command = [[%s/\s\+$//e]],
 })
 
 return M

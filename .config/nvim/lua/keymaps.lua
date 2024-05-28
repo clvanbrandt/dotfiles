@@ -24,6 +24,13 @@ vim.cmd([[
 --=============================================================================
 --# Keyboard shortcuts
 --=============================================================================
+-- Copy/Paste
+
+vim.keymap.set({ "n", "x" }, "gy", '"+y', { desc = "Copy to system clipboard" })
+vim.keymap.set("n", "gp", '"+p', { desc = "Paste from system clipboard" })
+
+-- - Paste in Visual with `P` to not copy selected text (`:h v_P`)
+vim.keymap.set("x", "gp", '"+P', { desc = "Paste from system clipboard" })
 
 -- Quick-save
 vim.keymap.set("n", "<leader>fs", ":silent w<CR>", { noremap = true, silent = true, desc = "Save file" })
@@ -100,8 +107,8 @@ vim.keymap.set("n", "<leader><leader>", "<c-^>", { desc = "Last buffer" })
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Move down" })
 
 -- Move current line / block with J/K a la vscode.
-vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move down" })
-vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move down", silent = true })
+vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move up", silent = true })
 
 -- QuickFix
 -- vim.keymap.set("n", "<c-k>", ":cnext<CR>", { desc = "Next quickfix", silent = true })
@@ -135,3 +142,38 @@ local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
 vim.keymap.set("n", "<leader>uc", function()
 	Util.toggle("conceallevel", false, { 0, conceallevel })
 end, { desc = "Toggle conceal" })
+
+-- Format
+vim.api.nvim_create_user_command("FormatDisable", function(args)
+	if args.bang then
+		vim.b.disable_autoformat = true
+	else
+		vim.g.disable_autoformat = true
+	end
+	Util.warn("Disabled format on save", { title = "Format" })
+end, {
+	desc = "Disable autoformat-on-save",
+	bang = true,
+})
+
+vim.api.nvim_create_user_command("FormatEnable", function()
+	vim.b.disable_autoformat = false
+	vim.g.disable_autoformat = false
+	Util.info("Enabled format on save", { title = "Format" })
+end, {
+	desc = "Re-enable autoformat-on-save",
+})
+
+vim.api.nvim_create_user_command("FormatToggle", function()
+	if vim.g.disable_autoformat then
+		vim.cmd("FormatEnable")
+	else
+		vim.cmd("FormatDisable")
+	end
+end, {
+	desc = "Re-enable autoformat-on-save",
+})
+
+vim.keymap.set("n", "<leader>uf", function()
+	vim.cmd("FormatToggle")
+end, { desc = "Toggle Format on Save" })

@@ -1,13 +1,13 @@
 return {
-	-- {
-	-- 	"folke/which-key.nvim",
-	-- 	event = "VeryLazy",
-	-- 	init = function()
-	-- 		vim.o.timeout = true
-	-- 		vim.o.timeoutlen = 1000
-	-- 	end,
-	-- 	opts = {},
-	-- },
+	{
+		"folke/which-key.nvim",
+		event = { "VimEnter", "VeryLazy" },
+		init = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 1000
+		end,
+		opts = {},
+	},
 	{
 		"mbbill/undotree",
 		cmd = { "UndotreeToggle" },
@@ -129,8 +129,14 @@ return {
 			end,
 		},
 	},
+	{
+		"stevearc/dressing.nvim",
+	},
 	-- {
-	-- 	"stevearc/dressing.nvim",
+	-- 	"ggandor/leap.nvim",
+	-- 	keys = {
+	-- 		{ "gs", "<Plug>(leap)" },
+	-- 	},
 	-- },
 	{ "NoahTheDuke/vim-just", ft = { "just" } },
 	{

@@ -61,3 +61,4 @@ export PATH="$PATH:$HOME/.local/share/coursier/bin"
 export PATH="$PATH:/Users/clvanbrandt/Library/Application Support/Coursier/bin"
 
 export JAVA_HOME="/usr/lib/jvm/default"
+. "$HOME/.cargo/env"
