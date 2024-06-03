@@ -56,12 +56,12 @@ function command_exists() {
     return $(command -v $1 1>/dev/null 2>&1)
 }
 
-for cmdenv in pyenv jenv scalenv # goenv rbenv scalaenv
-do
-    if command_exists $cmdenv; then
-        eval "$($cmdenv init -)"
-    fi
-done
+# for cmdenv in pyenv jenv scalenv # goenv rbenv scalaenv
+# do
+#     if command_exists $cmdenv; then
+#         eval "$($cmdenv init -)"
+#     fi
+# done
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
@@ -90,3 +90,6 @@ fi
 #   eval "$(atuin init zsh --disable-up-arrow)"
 # fi
 
+if command_exists asdf; then
+  . $(brew --prefix asdf)/libexec/asdf.sh
+fi

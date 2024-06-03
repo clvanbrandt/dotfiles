@@ -23,14 +23,14 @@ yabai -m rule --add title="^Preferences$" manage=off
 yabai -m rule --add title="^Digital Colour Meter$" manage=off
 yabai -m rule --add title="^General.*" manage=off
 
-yabai -m space 1 --label s1
-yabai -m space 2 --label s2
-yabai -m space 3 --label s3
-yabai -m space 4 --label s4
-yabai -m space 5 --label s5
-yabai -m space 6 --label s6
-yabai -m space 7 --label s7
-yabai -m space 8 --label s8
-yabai -m space 9 --label s9
-yabai -m space 10 --label s10
+yabai -m space 1 # --label s1
+yabai -m space 2 # --label s2
+yabai -m space 3 # --label s3
+yabai -m space 4 # --label s4
+yabai -m space 5 # --label s5
+yabai -m space 6 # --label s6
+yabai -m space 7 # --label s7
+yabai -m space 8 # --label s8
+yabai -m space 9 # --label s9
+yabai -m space 10 # --label s10
 
