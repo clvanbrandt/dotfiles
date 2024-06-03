@@ -39,7 +39,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # Spark
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  export SPARK_HOME="$HOME/.local/apache-spark"
+  # export SPARK_HOME="$HOME/.local/apache-spark"
 else
   export SPARK_HOME=/opt/spark
 fi
@@ -60,5 +60,5 @@ export PATH="$PATH:$HOME/.local/share/coursier/bin"
 # Metals
 export PATH="$PATH:/Users/clvanbrandt/Library/Application Support/Coursier/bin"
 
-export JAVA_HOME="/usr/lib/jvm/default"
+# export JAVA_HOME="/usr/lib/jvm/default"
 . "$HOME/.cargo/env"

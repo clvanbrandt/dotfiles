@@ -2,6 +2,7 @@ return {
 	{
 		"echasnovski/mini.nvim",
 		config = function()
+			require("mini.ai").setup()
 			require("mini.bracketed").setup({
 				window = { suffix = "" },
 			})
@@ -20,7 +21,7 @@ return {
 					trim_right = ">",
 				},
 			})
-			require("mini.indentscope").setup({ -- Draw options
+			require("mini.indentscope").setup({
 				draw = {
 					delay = 100,
 					animation = require("mini.indentscope").gen_animation.none(),
@@ -29,11 +30,73 @@ return {
 			})
 			require("mini.jump").setup()
 			require("mini.jump2d").setup()
+
+			local MiniStatusline = require("mini.statusline")
+			require("mini.statusline").setup({
+				content = {
+					active = function()
+						local trunc_width = 0
+						local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = trunc_width })
+						local git = MiniStatusline.section_git({ trunc_width = trunc_width })
+						local diff = MiniStatusline.section_diff({ trunc_width = trunc_width })
+						local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = trunc_width })
+						local lsp = MiniStatusline.section_lsp({ trunc_width = trunc_width })
+						local filename = MiniStatusline.section_filename({ trunc_width = trunc_width })
+						local location = (function(args)
+							if MiniStatusline.is_truncated(args.trunc_width) then
+								return "%l│%2v"
+							end
+
+							return '%l/%L│%2v/%-2{virtcol("$") - 1}'
+						end)({ trunc_width = trunc_width })
+						local search = MiniStatusline.section_searchcount({ trunc_width = trunc_width })
+
+						local fileinfo = (function(args)
+							local filetype = vim.bo.filetype
+
+							if filetype == "" or vim.bo.buftype ~= "" then
+								return ""
+							end
+
+							local _, devicons = pcall(require, "nvim-web-devicons")
+							local get_icon = function()
+								return devicons.get_icon(vim.fn.expand("%:t"), nil, { default = true })
+							end
+
+							filetype = get_icon() .. " " .. filetype
+
+							if MiniStatusline.is_truncated(args.trunc_width) then
+								return filetype
+							end
+
+							local encoding = vim.bo.fileencoding or vim.bo.encoding
+
+							return string.format("%s %s", filetype, encoding)
+						end)({ trunc_width = trunc_width })
+
+						return MiniStatusline.combine_groups({
+							{ hl = mode_hl, strings = { mode } },
+							{ hl = "MiniStatuslineDevinfo", strings = { git, diff, diagnostics, lsp } },
+							"%<", -- Mark general truncate point
+							{ hl = "MiniStatuslineFilename", strings = { filename } },
+							"%=", -- End left alignment
+							{ hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
+							{ hl = mode_hl, strings = { search, location } },
+						})
+					end,
+					inactive = nil,
+				},
+				use_icons = true,
+				set_vim_settings = false,
+			})
 			require("mini.splitjoin").setup()
 			require("mini.starter").setup()
 			require("mini.surround").setup()
 
-			vim.keymap.set("n", "<leader>ft", ":lua MiniFiles.open()<CR>", { desc = "File tree", silent = true })
+			vim.keymap.set("n", "<leader>ft", ":lua MiniFiles.open()<CR>", {
+				desc = "File tree",
+				silent = true,
+			})
 
 			local MiniFiles = require("mini.files")
 

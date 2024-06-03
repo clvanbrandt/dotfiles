@@ -1,5 +1,3 @@
-local util = require("util")
-
 return {
 	-- auto completion
 	{
@@ -61,6 +59,10 @@ return {
 					{ name = "path" },
 					{ name = "buffer", keyword_length = 3 },
 					{ name = "nvim_lua" },
+					{
+						name = "lazydev",
+						group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+					},
 				}),
 				formatting = {
 					format = require("lspkind").cmp_format({
@@ -76,6 +78,7 @@ return {
 							nvim_lua = "[lua]",
 							path = "[path]",
 							cmdline = "[cmdline]",
+							lazydev = "[nvim]",
 						},
 					}),
 				},
