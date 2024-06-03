@@ -32,7 +32,7 @@ return {
 			require("mini.jump2d").setup()
 
 			local MiniStatusline = require("mini.statusline")
-			require("mini.statusline").setup({
+			MiniStatusline.setup({
 				content = {
 					active = function()
 						local trunc_width = 0
@@ -44,7 +44,7 @@ return {
 						local filename = MiniStatusline.section_filename({ trunc_width = trunc_width })
 						local location = (function(args)
 							if MiniStatusline.is_truncated(args.trunc_width) then
-								return "%l│%2v"
+								return "%l/%2v"
 							end
 
 							return '%l/%L│%2v/%-2{virtcol("$") - 1}'

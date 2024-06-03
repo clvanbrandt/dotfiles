@@ -43,9 +43,6 @@ return {
 		enabled = true,
 		priority = 1000,
 		config = function()
-			if config.colorscheme == "catppuccin" then
-				vim.cmd.colorscheme(config.variant)
-			end
 			require("catppuccin").setup({
 				integrations = {
 					cmp = true,
@@ -57,10 +54,14 @@ return {
 					noice = true,
 					mini = {
 						enabled = true,
+						indentscope_color = "peach",
 					},
 					which_key = true,
 				},
 			})
+			if config.colorscheme == "catppuccin" then
+				vim.cmd.colorscheme(config.variant)
+			end
 		end,
 	},
 }
