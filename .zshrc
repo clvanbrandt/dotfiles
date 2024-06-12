@@ -51,7 +51,6 @@ export SUDO_EDITOR='nvim'
 # Alias
 source ~/.zsh/alias.sh
 
-
 function command_exists() {
     return $(command -v $1 1>/dev/null 2>&1)
 }
@@ -62,10 +61,6 @@ function command_exists() {
 #         eval "$($cmdenv init -)"
 #     fi
 # done
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 if command_exists aws-vault; then
     eval "$(aws-vault --completion-script-zsh)"
