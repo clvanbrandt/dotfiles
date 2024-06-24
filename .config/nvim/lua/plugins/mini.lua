@@ -6,6 +6,7 @@ return {
 			require("mini.bracketed").setup({
 				window = { suffix = "" },
 			})
+			require("mini.diff").setup()
 			require("mini.files").setup({
 				mappings = {
 					close = "q",

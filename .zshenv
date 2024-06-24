@@ -42,8 +42,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   # export SPARK_HOME="$HOME/.local/apache-spark"
 else
   export SPARK_HOME=/opt/spark
+  export PATH="$SPARK_HOME/bin:$SPARK_HOME/sbin:${PATH}"
 fi
-export PATH="$SPARK_HOME/bin:$SPARK_HOME/sbin:${PATH}"
 
 # Emacs
 export PATH="$HOME/.config/emacs/bin:${PATH}"
