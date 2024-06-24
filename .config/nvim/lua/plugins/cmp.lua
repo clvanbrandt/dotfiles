@@ -11,6 +11,7 @@ return {
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
 			"onsails/lspkind.nvim",
+			"petertriho/cmp-git",
 		},
 		opts = function()
 			local cmp = require("cmp")
@@ -63,6 +64,7 @@ return {
 						name = "lazydev",
 						group_index = 0, -- set group index to 0 to skip loading LuaLS completions
 					},
+					{ name = "git" },
 				}),
 				formatting = {
 					format = require("lspkind").cmp_format({
@@ -114,6 +116,8 @@ return {
 					{ name = "buffer" },
 				},
 			})
+
+			require("cmp_git").setup()
 		end,
 	},
 }
