@@ -81,6 +81,7 @@ return {
 							path = "[path]",
 							cmdline = "[cmdline]",
 							lazydev = "[nvim]",
+							git = "[git]",
 						},
 					}),
 				},
@@ -117,7 +118,7 @@ return {
 				},
 			})
 
-			require("cmp_git").setup()
+			require("cmp_git").setup({ filetypes = { "gitcommit", "octo", "NeogitCommitMessage" } })
 		end,
 	},
 }
