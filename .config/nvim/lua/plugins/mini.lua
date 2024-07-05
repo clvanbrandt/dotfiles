@@ -3,6 +3,12 @@ local util = require("util")
 return {
 	{
 		"echasnovski/mini.nvim",
+		init = function()
+			package.preload["nvim-web-devicons"] = function()
+				require("mini.icons").mock_nvim_web_devicons()
+				return package.loaded["nvim-web-devicons"]
+			end
+		end,
 		config = function()
 			require("mini.ai").setup()
 			require("mini.bracketed").setup({
@@ -25,34 +31,6 @@ return {
 				},
 			})
 			require("mini.icons").setup()
-			package.preload["nvim-web-devicons"] = function()
-				local Icons = require("mini.icons")
-				local ret = {}
-				package.loaded["nvim-web-devicons"] = ret
-				Icons.mock_nvim_web_devicons()
-
-				local function get(cat)
-					local all = {}
-					for _, name in ipairs(Icons.list(cat)) do
-						local icon, color = ret.get_icon_color(cat == "file" and name, cat == "extension" and name)
-						all[name] = { icon = icon, color = color }
-					end
-					return all
-				end
-
-				ret.get_icons_by_extension = function()
-					return get("extension")
-				end
-
-				ret.get_icons_by_filename = function()
-					return get("file")
-				end
-
-				ret.get_icons = function()
-					return vim.tbl_extend("force", get("file"), get("extension"))
-				end
-				return ret
-			end
 
 			require("mini.indentscope").setup({
 				draw = {
