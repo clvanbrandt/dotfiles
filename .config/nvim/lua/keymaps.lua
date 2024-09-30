@@ -49,7 +49,9 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 
 -- Ctrl+h to stop searching
 vim.keymap.set("v", "<C-h>", ":nohlsearch<cr>", { silent = true })
+vim.keymap.set("v", "<C-g>", ":nohlsearch<cr>", { silent = true })
 vim.keymap.set("n", "<C-h>", ":nohlsearch<cr>", { silent = true })
+vim.keymap.set("n", "<C-g>", ":nohlsearch<cr>", { silent = true })
 
 -- Jump to start and end of line using the home row keys
 -- vim.keymap.set("", "gH", "H", { noremap = true, silent = false })
@@ -87,6 +89,11 @@ vim.keymap.set("n", "<leader>j", "<C-W><C-J>", { desc = "Go to lower window" })
 vim.keymap.set("n", "<leader>k", "<C-W><C-K>", { desc = "Go to upper window" })
 vim.keymap.set("n", "<leader>l", "<C-W><C-L>", { desc = "Go to right window" })
 vim.keymap.set("n", "<leader>h", "<C-W><C-H>", { desc = "Go to left window" })
+
+vim.keymap.set("n", "<leader>wj", "<C-W><C-J>", { desc = "Go to lower window" })
+vim.keymap.set("n", "<leader>wk", "<C-W><C-K>", { desc = "Go to upper window" })
+vim.keymap.set("n", "<leader>wl", "<C-W><C-L>", { desc = "Go to right window" })
+vim.keymap.set("n", "<leader>wh", "<C-W><C-H>", { desc = "Go to left window" })
 
 -- Colemak edition
 vim.keymap.set("n", "<leader>wn", "<C-W><C-J>", { desc = "Go to lower window" })

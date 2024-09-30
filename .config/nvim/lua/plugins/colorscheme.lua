@@ -54,7 +54,7 @@ return {
 					noice = true,
 					mini = {
 						enabled = true,
-						indentscope_color = "peach",
+						indentscope_color = "teal",
 					},
 					which_key = true,
 				},

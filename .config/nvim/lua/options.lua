@@ -109,3 +109,10 @@ vim.cmd([[
     set diffopt+=algorithm:patience
     set diffopt+=indent-heuristic
 ]])
+
+vim.filetype.add({
+	extension = {
+		tf = "terraform",
+		http = "http",
+	},
+})

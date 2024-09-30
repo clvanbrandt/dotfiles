@@ -3,9 +3,6 @@ local M = {}
 vim.cmd([[
     augroup ftplugin
         au!
-        " au BufWinEnter * set formatoptions-=cro
-        au BufNewFile,BufRead *.tf setl filetype=terraform
-        au BufNewFile,BufRead *.json setl filetype=jsonc " To allow comments on json files
         au FileType man setl laststatus=0 noruler
         au FileType markdown setl wrap linebreak conceallevel=2
         au FileType vim,html,css,json,javascript,javascriptreact,typescript,typescriptreact,sh,zsh setl sw=2

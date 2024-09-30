@@ -61,4 +61,7 @@ export PATH="$PATH:$HOME/.local/share/coursier/bin"
 export PATH="$PATH:/Users/clvanbrandt/Library/Application Support/Coursier/bin"
 
 # export JAVA_HOME="/usr/lib/jvm/default"
+export PATH="$HOME/.jenv/bin:$PATH"
+
+# Rust
 . "$HOME/.cargo/env"

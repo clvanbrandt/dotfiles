@@ -58,6 +58,7 @@ return {
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
 					{ name = "path" },
+					{ name = "copilot" },
 					{ name = "buffer", keyword_length = 3 },
 					{ name = "nvim_lua" },
 					{
@@ -72,6 +73,7 @@ return {
 						maxwidth = function()
 							return math.floor(0.45 * vim.o.columns)
 						end,
+						symbol_map = { Copilot = "" },
 						ellipsis_char = "...",
 						show_labelDetails = true,
 						menu = {
@@ -82,6 +84,7 @@ return {
 							cmdline = "[cmdline]",
 							lazydev = "[nvim]",
 							git = "[git]",
+							copilot = "[copilot]",
 						},
 					}),
 				},
@@ -110,7 +113,7 @@ return {
 				matching = { disallow_symbol_nonprefix_matching = false },
 			})
 
-			-- Setup up vim-dadbod
+			--Setup up vim-dadbod
 			cmp.setup.filetype({ "sql" }, {
 				sources = {
 					{ name = "vim-dadbod-completion" },
@@ -119,6 +122,21 @@ return {
 			})
 
 			require("cmp_git").setup({ filetypes = { "gitcommit", "octo", "NeogitCommitMessage" } })
+		end,
+	},
+	{
+		"zbirenbaum/copilot.lua",
+		config = function()
+			require("copilot").setup({
+				suggestion = { enabled = false },
+				panel = { enabled = false },
+			})
+		end,
+	},
+	{
+		"zbirenbaum/copilot-cmp",
+		config = function()
+			require("copilot_cmp").setup()
 		end,
 	},
 }

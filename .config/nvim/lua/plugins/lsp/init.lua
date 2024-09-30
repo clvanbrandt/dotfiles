@@ -13,10 +13,10 @@ local function on_attach(opts)
 				---@diagnostic disable-next-line: inject-field
 				client.server_capabilities.hover = false
 			end
-
-			if client.supports_method("textDocument/inlayHint") then
-				vim.lsp.inlay_hint.enable(opts.inlay_hints.enabled)
-			end
+			--
+			-- if client.supports_method("textDocument/inlayHint") then
+			-- 	vim.lsp.inlay_hint.enable(opts.inlay_hints.enabled)
+			-- end
 
 			require("plugins.lsp.keymaps").on_attach(client, buffer)
 		end,
@@ -45,9 +45,9 @@ return {
 				virtual_text = { spacing = 4, prefix = "●" },
 				severity_sort = true,
 			},
-			inlay_hints = {
-				enabled = false,
-			},
+			-- inlay_hints = {
+			-- 	enabled = false,
+			-- },
 			-- LSP Server Settings
 			servers = {
 				gdscript = {},
@@ -78,7 +78,7 @@ return {
 						},
 					},
 				},
-				tsserver = {
+				ts_ls = {
 					settings = {
 						typescript = {
 							inlayHints = {
@@ -149,7 +149,7 @@ return {
 			local mlsp = require("mason-lspconfig")
 			local available = mlsp.get_available_servers()
 
-			local ensure_installed = { "lua_ls", "tsserver", "pyright", "terraformls", "ruff" }
+			local ensure_installed = { "lua_ls", "ts_ls", "pyright", "terraformls", "ruff" }
 			for server, server_opts in pairs(servers) do
 				if server_opts then
 					server_opts = server_opts == true and {} or server_opts
@@ -242,9 +242,9 @@ return {
 					lua = { "stylua" },
 					terraform = { "terraform_fmt" },
 					rust = { "rustfmt" },
-					python = { "ruff_format", "ruff_fix" },
+					python = { "ruff_fix", "ruff_format" },
 					-- Use a sub-list to run only the first available formatter
-					javascript = { { "prettierd", "prettier" } },
+					javascript = { "prettierd", "prettier", stop_after_first = true },
 				},
 			})
 

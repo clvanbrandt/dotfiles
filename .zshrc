@@ -1,6 +1,22 @@
-# More completion
-autoload bashcompinit && bashcompinit
-autoload -Uz compinit && compinit
+# Completion
+
+# autoload bashcompinit && bashcompinit
+# autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+zstyle ':completion:*:git-checkout:*' sort false
+
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
+  autoload -Uz compinit
+  compinit
+fi
 
 # Plugin management
 source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
@@ -32,17 +48,6 @@ export HISTFILE="${HOME}/.zsh_history"
 export SAVEHIST=10000
 export HISTSIZE=10000
 
-# Completion
-fpath+=~/.zfunc
-fpath+=/opt/homebrew/share/zsh/site-functions
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' menu no
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -1 --color=always $realpath'
-zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-zstyle ':completion:*:git-checkout:*' sort false
-
 # Editor
 export EDITOR='nvim'
 export SUDO_EDITOR='nvim'
@@ -55,12 +60,12 @@ function command_exists() {
     return $(command -v $1 1>/dev/null 2>&1)
 }
 
-# for cmdenv in pyenv jenv scalenv # goenv rbenv scalaenv
-# do
-#     if command_exists $cmdenv; then
-#         eval "$($cmdenv init -)"
-#     fi
-# done
+for cmdenv in jenv # scalenv # goenv rbenv scalaenv
+do
+    if command_exists $cmdenv; then
+        eval "$($cmdenv init -)"
+    fi
+done
 
 if command_exists aws-vault; then
     eval "$(aws-vault --completion-script-zsh)"

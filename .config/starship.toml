@@ -52,6 +52,7 @@ format = '[$symbol$context( \($namespace\))]($style) '
 style = "bold cyan"
 
 [python]
+disabled = false
 format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
 style = "purple bold"
 
