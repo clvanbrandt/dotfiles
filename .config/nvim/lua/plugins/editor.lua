@@ -87,6 +87,17 @@ return {
 				command_palette = false, -- position the cmdline and popupmenu together
 				lsp_doc_border = true, -- add a border to hover docs and signature help
 			},
+			routes = {
+				{
+					filter = {
+						event = "notify",
+						find = "No information available",
+					},
+					opts = {
+						skip = true,
+					},
+				},
+			},
 		},
 		dependencies = {
 			"MunifTanjim/nui.nvim",

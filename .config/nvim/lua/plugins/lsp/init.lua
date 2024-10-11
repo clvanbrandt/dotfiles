@@ -9,18 +9,20 @@ local function on_attach(opts)
 				return
 			end
 
-			if client.name == "ruff" then
-				---@diagnostic disable-next-line: inject-field
-				client.server_capabilities.hover = false
-			end
-			--
-			-- if client.supports_method("textDocument/inlayHint") then
-			-- 	vim.lsp.inlay_hint.enable(opts.inlay_hints.enabled)
-			-- end
-
 			require("plugins.lsp.keymaps").on_attach(client, buffer)
 		end,
 	})
+end
+
+local function make_capabilities()
+	local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+	local capabilities = vim.tbl_deep_extend(
+		"force",
+		{},
+		vim.lsp.protocol.make_client_capabilities(),
+		has_cmp and cmp_nvim_lsp.default_capabilities() or {}
+	)
+	return capabilities
 end
 
 return {
@@ -45,9 +47,9 @@ return {
 				virtual_text = { spacing = 4, prefix = "●" },
 				severity_sort = true,
 			},
-			-- inlay_hints = {
-			-- 	enabled = false,
-			-- },
+			inlay_hints = {
+				enabled = true,
+			},
 			-- LSP Server Settings
 			servers = {
 				gdscript = {},
@@ -67,6 +69,9 @@ return {
 							},
 							completion = {
 								callSnippet = "Replace",
+							},
+							hint = {
+								enable = true,
 							},
 						},
 					},
@@ -121,13 +126,8 @@ return {
 			vim.diagnostic.config(opts.diagnostics)
 
 			local servers = opts.servers
-			local capabilities =
-				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-			capabilities.textDocument.foldingRange = {
-				dynamicRegistration = false,
-				lineFoldingOnly = true,
-			}
+			local capabilities = make_capabilities()
 
 			local function setup(server)
 				local server_opts = vim.tbl_deep_extend("force", {
@@ -136,10 +136,6 @@ return {
 
 				if opts.setup[server] then
 					if opts.setup[server](server, server_opts) then
-						return
-					end
-				elseif opts.setup["*"] then
-					if opts.setup["*"](server, server_opts) then
 						return
 					end
 				end
@@ -208,8 +204,17 @@ return {
 			local metals_config = require("metals").bare_config()
 			metals_config.init_options.statusBarProvider = "off"
 			metals_config.on_attach = on_attach
-			metals_config.capabilities =
-				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+			metals_config.settings = {
+				inlayHints = {
+					hintsInPatternMatch = { enable = true },
+					implicitArguments = { enable = true },
+					implicitConversions = { enable = true },
+					inferredTypes = { enable = true },
+					typeParameters = { enable = true },
+				},
+			}
+			metals_config.capabilities = make_capabilities()
+
 			return metals_config
 		end,
 		config = function(self, metals_config)

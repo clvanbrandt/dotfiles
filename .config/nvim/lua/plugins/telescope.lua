@@ -33,7 +33,7 @@ end
 local is_inside_work_tree = {}
 
 local function project_files()
-	local opts = { hidden = true, show_untracked = true }
+	local opts = { hidden = true, show_untracked = true, cwd_only = true }
 
 	local builtin = require("telescope.builtin")
 
@@ -42,11 +42,7 @@ local function project_files()
 		is_inside_work_tree[cwd] = util.is_git_repo
 	end
 
-	if is_inside_work_tree[cwd] then
-		builtin.git_files(opts)
-	else
-		builtin.find_files(opts)
-	end
+	builtin.find_files(opts)
 end
 
 return {

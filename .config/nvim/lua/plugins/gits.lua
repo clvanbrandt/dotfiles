@@ -8,12 +8,15 @@ return {
 		},
 		cmd = { "Neogit" },
 		opts = {
-			kind = "tab",
-			commit_editor = {
-				kind = "auto",
-				show_staged_diff = false,
-			},
+			show_staged_diff = false,
 		},
+		-- opts = {
+		-- 	kind = "tab",
+		-- 	commit_editor = {
+		-- 		kind = "auto",
+		-- 		show_staged_diff = false,
+		-- 	},
+		-- },
 		keys = {
 			{ "<leader>gs", ":Neogit<CR>", desc = "Neogit", noremap = true, silent = true },
 			{ "<leader>gc", ":Neogit commit<CR>", noremap = true, silent = true },

@@ -2,8 +2,9 @@ return {
 	-- auto completion
 	{
 		"hrsh7th/nvim-cmp",
-		version = false, -- last release is way too old
+		version = false,
 		lazy = false,
+		enabled = false,
 		event = { "InsertEnter", "CmdlineEnter" },
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
@@ -126,17 +127,53 @@ return {
 	},
 	{
 		"zbirenbaum/copilot.lua",
+		enabled = true,
+		event = "InsertEnter",
 		config = function()
 			require("copilot").setup({
-				suggestion = { enabled = false },
+				suggestion = {
+					enabled = true,
+					keymap = {
+						accept = "<C-y>",
+						accept_word = false,
+						accept_line = false,
+						next = "<C-n>",
+						prev = "<C-p>",
+						dismiss = "<C-]>",
+					},
+				},
 				panel = { enabled = false },
 			})
 		end,
 	},
 	{
 		"zbirenbaum/copilot-cmp",
+		enabled = false,
 		config = function()
 			require("copilot_cmp").setup()
 		end,
+	},
+	{
+		"saghen/blink.cmp",
+		lazy = false,
+		dependencies = "rafamadriz/friendly-snippets",
+		version = "v0.*",
+		opts = {
+			keymap = {
+				show = "<C-space>",
+				hide = "<C-e>",
+				accept = { "<Tab>" },
+				select_prev = { "<C-k>" },
+				select_next = { "<C-j>" },
+
+				show_documentation = {},
+				hide_documentation = {},
+				scroll_documentation_up = "<C-b>",
+				scroll_documentation_down = "<C-f>",
+
+				snippet_forward = "<Tab>",
+				snippet_backward = "<S-Tab>",
+			},
+		},
 	},
 }

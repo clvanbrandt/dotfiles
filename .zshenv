@@ -28,12 +28,6 @@ export PATH="$HOME/.cargo/bin:${PATH}"
 export JENV_ROOT="$HOME/.jenv"
 export PATH="$JENV_ROOT/bin:$PATH"
 
-# GO
-export GOENV_ROOT="$HOME/.goenv"
-export PATH="$GOENV_ROOT/bin:$PATH"
-export PATH="$GOROOT/bin:$PATH"
-export PATH="$PATH:$GOPATH/bin"
-
 # Node
 export NVM_DIR="$HOME/.nvm"
 

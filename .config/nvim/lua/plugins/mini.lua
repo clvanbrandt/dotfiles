@@ -1,5 +1,3 @@
-local util = require("util")
-
 return {
 	{
 		"echasnovski/mini.nvim",
@@ -40,7 +38,12 @@ return {
 				},
 			})
 			require("mini.jump").setup()
-			require("mini.jump2d").setup()
+			require("mini.jump2d").setup({
+				allowed_windows = {
+					current = true,
+					not_current = false,
+				},
+			})
 
 			local MiniStatusline = require("mini.statusline")
 			MiniStatusline.setup({
@@ -143,13 +146,9 @@ return {
 					end
 
 					map_buf("<Right>", MiniFiles.go_in)
-					map_buf("i", MiniFiles.go_in)
 					map_buf("<S-Right>", go_in_plus)
-					map_buf("I", go_in_plus)
 					map_buf("<Left>", MiniFiles.go_out)
-					map_buf("m", MiniFiles.go_out)
 					map_buf("<S-Left>", go_out_plus)
-					map_buf("M", go_out_plus)
 					map_buf("w", MiniFiles.synchronize)
 					map_buf(",", MiniFiles.trim_left)
 					map_buf(".", MiniFiles.trim_right)

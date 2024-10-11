@@ -1,3 +1,12 @@
 .DS_Store
 .dir-locals.el
 .zsh/plugins.zsh
+
+.config/AWS VPN Client
+.config/AWSVPNClient
+.config/aerospace
+.config/filezilla
+.config/gh
+.config/github-copilot
+.config/jgit
+.config/qBitTorrent
