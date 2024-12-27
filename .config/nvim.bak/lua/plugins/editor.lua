@@ -101,7 +101,6 @@ return {
 		},
 		dependencies = {
 			"MunifTanjim/nui.nvim",
-			"rcarriga/nvim-notify",
 		},
 		config = function(_, opts)
 			require("noice").setup(opts)
@@ -119,31 +118,9 @@ return {
 		end,
 	},
 	{
-		"rcarriga/nvim-notify",
-		keys = {
-			{
-				"<leader>cln",
-				function()
-					require("notify").dismiss({ silent = true, pending = true })
-				end,
-				desc = "Delete all Notifications",
-			},
-		},
-		opts = {
-			render = "compact",
-			timeout = 1000,
-			max_height = function()
-				return math.floor(vim.o.lines * 0.75)
-			end,
-			max_width = function()
-				return math.floor(vim.o.columns * 0.75)
-			end,
-		},
-	},
-	{
 		"stevearc/dressing.nvim",
 	},
-	-- {
+	--{
 	-- 	"ggandor/leap.nvim",
 	-- 	keys = {
 	-- 		{ "gs", "<Plug>(leap)" },
@@ -196,6 +173,6 @@ return {
 		end,
 		ft = { "markdown" },
 	},
-	{ "chrisbra/csv.vim" },
-	{ "mistweaverco/kulala.nvim", opts = {}, ft = { "http" } },
+	{ "chrisbra/csv.vim", ft = { "csv" } },
+	{ "mistweaverco/kulala.nvim", enabled = false, opts = {}, ft = { "http" } },
 }

@@ -1,10 +1,16 @@
+local has_words_before = function()
+	unpack = unpack or table.unpack
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
 return {
 	-- auto completion
 	{
 		"hrsh7th/nvim-cmp",
 		version = false,
 		lazy = false,
-		enabled = false,
+		enabled = true,
 		event = { "InsertEnter", "CmdlineEnter" },
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
@@ -55,6 +61,25 @@ return {
 							fallback()
 						end
 					end),
+					["<Tab>"] = function(fallback)
+						if not cmp.select_next_item() then
+							if vim.bo.buftype ~= "prompt" and has_words_before() then
+								cmp.complete()
+							else
+								fallback()
+							end
+						end
+					end,
+
+					["<S-Tab>"] = function(fallback)
+						if not cmp.select_prev_item() then
+							if vim.bo.buftype ~= "prompt" and has_words_before() then
+								cmp.complete()
+							else
+								fallback()
+							end
+						end
+					end,
 				}),
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
@@ -137,8 +162,8 @@ return {
 						accept = "<C-y>",
 						accept_word = false,
 						accept_line = false,
-						next = "<C-n>",
-						prev = "<C-p>",
+						next = "<C-I>",
+						prev = "<C-O>",
 						dismiss = "<C-]>",
 					},
 				},
@@ -155,6 +180,7 @@ return {
 	},
 	{
 		"saghen/blink.cmp",
+		enabled = false,
 		lazy = false,
 		dependencies = "rafamadriz/friendly-snippets",
 		version = "v0.*",
@@ -162,12 +188,11 @@ return {
 			keymap = {
 				show = "<C-space>",
 				hide = "<C-e>",
-				accept = { "<Tab>" },
-				select_prev = { "<C-k>" },
-				select_next = { "<C-j>" },
-
-				show_documentation = {},
-				hide_documentation = {},
+				accept = { "<C-y>" },
+				select_prev = { "<C-k>", "<C-p>" },
+				select_next = { "<C-j>", "<C-n>" },
+				show_documentation = "<C-space>",
+				hide_documentation = "<C-space>",
 				scroll_documentation_up = "<C-b>",
 				scroll_documentation_down = "<C-f>",
 

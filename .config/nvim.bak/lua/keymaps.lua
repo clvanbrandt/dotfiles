@@ -127,28 +127,33 @@ vim.keymap.set("n", "<leader>xQ", "<cmd>copen<cr>", { desc = "Quickfix List" })
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
-vim.keymap.set("n", "<leader>uh", function()
-	Util.toggle_inlay_hints()
-end, { desc = "Toggle Inlay Hints" })
+local has_snacks, _ = pcall(require, "snacks")
 
-vim.keymap.set("n", "<leader>ui", function()
-	Util.toggle("list")
-end, { desc = "Toggle invisible characters" })
+if not has_snacks then
+	vim.keymap.set("n", "<leader>uh", function()
+		Util.toggle_inlay_hints()
+	end, { desc = "Toggle Inlay Hints" })
 
-vim.keymap.set("n", "<leader>un", function()
-	Util.toggle("number")
-end, { desc = "Toggle numbers" })
+	vim.keymap.set("n", "<leader>ui", function()
+		Util.toggle("list")
+	end, { desc = "Toggle invisible characters" })
 
-vim.keymap.set("n", "<leader>ur", function()
-	Util.toggle("relativenumber")
-end, { desc = "Toggle relative numbers" })
+	vim.keymap.set("n", "<leader>un", function()
+		Util.toggle("number")
+	end, { desc = "Toggle numbers" })
 
-vim.keymap.set("n", "<leader>ud", Util.toggle_diagnostics, { desc = "Toggle diagnostics" })
+	vim.keymap.set("n", "<leader>ur", function()
+		Util.toggle("relativenumber")
+	end, { desc = "Toggle relative numbers" })
 
-local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
-vim.keymap.set("n", "<leader>uc", function()
-	Util.toggle("conceallevel", false, { 0, conceallevel })
-end, { desc = "Toggle conceal" })
+	local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
+	vim.keymap.set("n", "<leader>uc", function()
+		Util.toggle("conceallevel", false, { 0, conceallevel })
+	end, { desc = "Toggle conceal" })
+
+	-- Diagnostics
+	vim.keymap.set("n", "<leader>ud", Util.toggle_diagnostics, { desc = "Toggle diagnostics" })
+end
 
 -- Format
 vim.api.nvim_create_user_command("FormatDisable", function(args)

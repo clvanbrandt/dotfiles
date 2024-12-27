@@ -111,7 +111,7 @@ return {
 				set_vim_settings = false,
 			})
 			require("mini.splitjoin").setup()
-			require("mini.starter").setup()
+			-- require("mini.starter").setup()
 			require("mini.surround").setup()
 
 			vim.keymap.set("n", "<leader>ft", ":lua MiniFiles.open()<CR>", {

@@ -51,31 +51,15 @@ return {
 		cmd = "Telescope",
 		-- tag = "0.1.6",
 		keys = {
-			{
-				"<leader>ff",
-				project_files,
-				desc = "Find Files",
-			},
-			{
-				"<leader>fF",
-				find_files_from_root,
-				desc = "Find Files (Root Dir)",
-			},
+			{ "<leader>ff", project_files, desc = "Find Files" },
+			{ "<leader>fF", find_files_from_root, desc = "Find Files (Root Dir)" },
 			{ "<leader>fg", "<cmd>Telescope git_files<CR>", desc = "Find files (git)" },
 			{ "<leader>fb", "<cmd>Telescope buffers<CR>", desc = "Buffers" },
 			{ "<leader>fh", "<cmd>Telescope help_tags<CR>", desc = "Help pages" },
-			{
-				"<leader>fo",
-				"<cmd>Telescope oldfiles<CR>",
-				desc = "Recent files",
-			},
+			{ "<leader>fo", "<cmd>Telescope oldfiles<CR>", desc = "Recent files" },
 			{ "<leader>fw", "<cmd>Telescope live_grep<CR>", desc = "Grep" },
 			{ "<leader>f<space>", "<cmd>Telescope smart_open cwd_only=true<CR>", desc = "Smart Open" },
-			{
-				"<leader>fn",
-				"<cmd>Telescope notify<CR>",
-				desc = "Notifications",
-			},
+			{ "<leader>fn", "<cmd>Telescope notify<CR>", desc = "Notifications" },
 			{ "<leader>fq", "<cmd>Telescope quickfix<CR>", desc = "Quickfix" },
 			{ "<leader>fc", "<cmd>Telescope<CR>", desc = "Telescope" },
 			{ "<leader>sa", "<cmd>Telescope autocommands<CR>", desc = "Auto Commands" },
@@ -93,21 +77,15 @@ return {
 			{ "<leader>sm", "<cmd>Telescope marks<CR>", desc = "Jump to Mark" },
 			{ "<leader>so", "<cmd>Telescope vim_options<CR>", desc = "Options" },
 			{ "<leader>sR", "<cmd>Telescope resume<CR>", desc = "Resume" },
+			{ "<leader>sP", "<cmd>Telescope pickers<CR>", desc = "Pickers" },
 			{ '<leader>s"', "<cmd>Telescope registers<CR>", desc = "Registers" },
 		},
 		dependencies = {
-			{
-				"nvim-telescope/telescope-fzf-native.nvim",
-				build = "make",
-				lazy = false,
-			},
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make", lazy = false },
 			{
 				"danielfalk/smart-open.nvim",
 				branch = "0.2.x",
-				dependencies = {
-					"kkharji/sqlite.lua",
-					{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-				},
+				dependencies = { "kkharji/sqlite.lua", { "nvim-telescope/telescope-fzf-native.nvim", build = "make" } },
 			},
 		},
 		config = function(_, _)
@@ -148,7 +126,7 @@ return {
 							},
 						},
 					},
-					file_ignore_patterns = { "node_plugins/.*", "%.git/.", "package-lock.json" },
+					file_ignore_patterns = { "node_plugins/.*", "%.git/.", "package-lock.json", "uv.lock" },
 					vimgrep_arguments = {
 						"rg",
 						"--color=never",
@@ -237,48 +215,8 @@ return {
 				},
 			})
 			require("telescope").load_extension("fzf")
-			require("telescope").load_extension("notify")
+			-- require("telescope").load_extension("notify")
 			require("telescope").load_extension("smart_open")
 		end,
 	},
-	-- {
-	-- 	"ibhagwan/fzf-lua",
-	-- 	config = function()
-	-- 		local actions = require("fzf-lua.actions")
-	--
-	-- 		require("fzf-lua").setup({
-	-- 			grep = {
-	-- 				rg_opts = "--sort-files --hidden --column --line-number --no-heading "
-	-- 					.. "--color=never --smart-case -g '!{.git,node_modules}/*'",
-	-- 			},
-	-- 			actions = {
-	-- 				files = {
-	-- 					["default"] = actions.file_edit,
-	-- 					["ctrl-s"] = actions.file_split,
-	-- 					["ctrl-v"] = actions.file_vsplit,
-	-- 					["ctrl-t"] = actions.file_tabedit,
-	-- 					["ctrl-q"] = actions.file_sel_to_qf,
-	-- 				},
-	-- 			},
-	-- 		})
-	-- 		vim.keymap.set(
-	-- 			"n",
-	-- 			"<leader>ff",
-	-- 			"<cmd>lua require('fzf-lua').files()<CR>",
-	-- 			{ silent = true, desc = "Files" }
-	-- 		)
-	-- 		vim.keymap.set(
-	-- 			"n",
-	-- 			"<leader>fb",
-	-- 			"<cmd>lua require('fzf-lua').buffers()<CR>",
-	-- 			{ silent = true, desc = "Buffers" }
-	-- 		)
-	-- 		vim.keymap.set(
-	-- 			"n",
-	-- 			"<leader>fw",
-	-- 			"<cmd>lua require('fzf-lua').live_grep()<CR>",
-	-- 			{ silent = true, desc = "Buffers" }
-	-- 		)
-	-- 	end,
-	-- },
 }
