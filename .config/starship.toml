@@ -11,6 +11,7 @@ $git_status\
 $aws\
 $azure\
 $python\
+$terraform\
 $kubernetes\
 $character\
 """

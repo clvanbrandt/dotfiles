@@ -41,3 +41,5 @@ export PATH="$HOME/.jenv/bin:$PATH"
 
 # Rust
 . "$HOME/.cargo/env"
+
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"

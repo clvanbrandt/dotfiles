@@ -1,0 +1,20 @@
+[user]
+name = Carl-Louis Van Brandt
+email = clvanbrandt@gmail.com
+	signingkey = 739A993E31ACEFB8
+[fetch]
+	prune = true
+[commit]
+	gpgsign = true
+[core]
+	excludesfile = /Users/clvanbrandt/.config/.gitignore
+[rerere]
+	enabled = 1
+	autoupdate = false
+[alias]
+    st = status
+    ck = checkout
+    sw = switch
+    cm = commit
+    cane = commit --amend --no-edit
+    pf = push --force-with-lease

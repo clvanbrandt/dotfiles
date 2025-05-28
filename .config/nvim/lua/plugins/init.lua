@@ -1,7 +1,6 @@
 return {
   { "akinsho/bufferline.nvim", enabled = false },
   { "nvim-neo-tree/neo-tree.nvim", enabled = false },
-  { "nvim-lualine/lualine.nvim", enabled = false },
   { "snacks.nvim", opts = {
     scroll = { enabled = false },
     dashboard = { enabled = false },
@@ -33,10 +32,7 @@ return {
       }
     end,
   },
-  {
-    "vimpostor/vim-tpipeline",
-    event = "VeryLazy",
-  },
+
   {
     "mbbill/undotree",
     cmd = { "UndotreeToggle" },
@@ -48,6 +44,11 @@ return {
     "echasnovski/mini.splitjoin",
     opts = {},
   },
+  { "nvim-lualine/lualine.nvim", enabled = false },
+  -- {
+  --   "vimpostor/vim-tpipeline",
+  --   event = "VeryLazy",
+  -- },
   {
     "echasnovski/mini.statusline",
     opts = {},
@@ -79,4 +80,34 @@ return {
       },
     },
   },
+  {
+    "saghen/blink.cmp",
+    opts = {
+      sources = {
+        min_keyword_length = function()
+          return 2
+        end,
+      },
+    },
+  },
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      inlay_hints = {
+        enabled = false,
+      },
+      servers = {
+        gdscript = {},
+      },
+    },
+  },
+  {
+    "rbong/vim-flog",
+    lazy = true,
+    cmd = { "Flog", "Flogsplit", "Floggit" },
+    dependencies = {
+      "tpope/vim-fugitive",
+    },
+  },
+  { "chrisbra/csv.vim", ft = { "csv" } },
 }

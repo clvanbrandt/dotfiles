@@ -1,0 +1,6 @@
+{
+	"auths": {
+		"public.ecr.aws": {}
+	},
+	"credsStore": "osxkeychain"
+}

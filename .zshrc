@@ -1,8 +1,7 @@
 # Completion
 
 # autoload bashcompinit && bashcompinit
-# autoload -Uz compinit && compinit
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+# autoload -Uz compinit && compinit zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
@@ -89,7 +88,3 @@ fi
 # if command_exists atuin; then
 #   eval "$(atuin init zsh --disable-up-arrow)"
 # fi
-
-if command_exists asdf; then
-  . $(brew --prefix asdf)/libexec/asdf.sh
-fi

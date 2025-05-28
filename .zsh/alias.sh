@@ -1,10 +1,10 @@
 # Arch
 if command -v yay 1>/dev/null 2>&1; then
-	alias p='yay'
-	alias up='yay -Syu'
+  alias p='yay'
+  alias up='yay -Syu'
 elif command -v pacman 1>/dev/null 2>&1; then
-	alias p='sudo pacman'
-	alias up='sudo pacman -Syu'
+  alias p='sudo pacman'
+  alias up='sudo pacman -Syu'
 fi
 
 # Common aliases
@@ -14,7 +14,7 @@ alias vim='nvim'
 # alias systemctl='sudo systemctl'
 
 if command -v doas 1>/dev/null 2>&1; then
-    alias sudo='doas'
+  alias sudo='doas'
 fi
 
 alias zsh_history_fix='mv ~/.zsh_history ~/.zsh_history_bad && strings -eS .zsh_history_bad > .zsh_history && fc -R .zsh_history'
@@ -32,14 +32,14 @@ alias essh='vi ${HOME}/.ssh/config'
 alias eemacs='vi ${HOME}/.emacs.d/init.el'
 
 if command -v eza 1>/dev/null 2>&1; then
-	alias l='eza'
-	alias ls='eza'
-	alias ll='eza -l'
-	alias lll='eza -la'
+  alias l='eza'
+  alias ls='eza'
+  alias ll='eza -l'
+  alias lll='eza -la'
 else
-	alias l='ls'
-	alias ll='ls -l'
-	alias lll='ls -la'
+  alias l='ls'
+  alias ll='ls -l'
+  alias lll='ls -la'
 fi
 
 # Kubernetes
@@ -58,7 +58,7 @@ alias aen='f(){ aws-vault exec $1 --no-session; }; f'
 
 # WSL
 if command -v ipconfig.exe 1>/dev/null 2>&1; then
-    alias wsl_display="export WSL_ip_line=$(ipconfig.exe | grep "WSL" -n | awk -F ":" '{print $1+4}') && export DISPLAY=192.168.1.30:0.0 && export LIBGL_ALWAYS_INDIRECT=1"
+  alias wsl_display="export WSL_ip_line=$(ipconfig.exe | grep "WSL" -n | awk -F ":" '{print $1+4}') && export DISPLAY=192.168.1.30:0.0 && export LIBGL_ALWAYS_INDIRECT=1"
 fi
 
 alias tartozip="for f in *.tar.gz;do rm -rf ${f%.tar.gz} ;mkdir ${f%.tar.gz} ;tar -C ${f%.tar.gz} zxvf $f;zip -r ${f%.tar.gz} $f.zip;rm -rf ${f%.tar.gz};done"
@@ -66,18 +66,17 @@ alias tartozip="for f in *.tar.gz;do rm -rf ${f%.tar.gz} ;mkdir ${f%.tar.gz} ;ta
 # Git
 alias gcane="git commit --amend --no-edit"
 alias gp="git push"
-alias gpf="git push -f"
+alias gpf="git push --force-with-lease"
 
 if command -v zoxide 1>/dev/null 2>&1; then
-    alias cd='z'
-    alias cdi='zi'
-    alias j='z'
-    alias ji='zi'
+  alias cd='z'
+  alias cdi='zi'
+  alias j='z'
+  alias ji='zi'
 fi
 
-
 fe() {
-local files
+  local files
   IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
   [[ -n "$files" ]] && nvim "${files[@]}"
 }
