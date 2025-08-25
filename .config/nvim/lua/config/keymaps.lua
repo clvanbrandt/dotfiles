@@ -12,3 +12,6 @@ vim.keymap.set("n", "<leader>fz", ":silent wq<CR>", { noremap = true, silent = t
 
 --<leader><leader> toggles between buffer
 vim.keymap.set("n", "<Space><Space>", "<c-^>", { desc = "Last buffer" })
+
+-- I hate q:
+vim.keymap.set("n", "q:", ":q", { noremap = true })

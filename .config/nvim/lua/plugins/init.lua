@@ -110,4 +110,9 @@ return {
     },
   },
   { "chrisbra/csv.vim", ft = { "csv" } },
+  {
+    "sphamba/smear-cursor.nvim",
+    opts = {},
+    enabled = false,
+  },
 }

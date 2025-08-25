@@ -46,6 +46,7 @@ style = "green"
 [aws]
 format = "[$symbol($profile )(\\($region\\) )(\\[$duration\\] )]($style)"
 symbol = " "
+force_display = false
 
 [kubernetes]
 disabled = false
