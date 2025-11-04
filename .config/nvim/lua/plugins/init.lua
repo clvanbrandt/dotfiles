@@ -41,7 +41,7 @@ return {
     },
   },
   {
-    "echasnovski/mini.splitjoin",
+    "nvim-mini/mini.splitjoin",
     opts = {},
   },
   { "nvim-lualine/lualine.nvim", enabled = false },
@@ -50,11 +50,11 @@ return {
   --   event = "VeryLazy",
   -- },
   {
-    "echasnovski/mini.statusline",
+    "nvim-mini/mini.statusline",
     opts = {},
   },
   {
-    "echasnovski/mini.files",
+    "nvim-mini/mini.files",
     opts = {
       windows = {
         preview = false,
@@ -98,6 +98,11 @@ return {
       },
       servers = {
         gdscript = {},
+        terraformls = { enabled = false },
+        tofu_ls = { enabled = true },
+        ts = {},
+        pyright = { enabled = false },
+        basedpyright = { enabled = false },
       },
     },
   },
@@ -114,5 +119,17 @@ return {
     "sphamba/smear-cursor.nvim",
     opts = {},
     enabled = false,
+  },
+  {
+    "stevearc/conform.nvim",
+    optional = true,
+    opts = {
+      formatters_by_ft = {
+        hcl = { "packer_fmt" },
+        terraform = { "tofu_fmt" },
+        tf = { "tofu_fmt" },
+        ["terraform-vars"] = { "tofu_fmt" },
+      },
+    },
   },
 }
