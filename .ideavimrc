@@ -443,3 +443,4 @@ nnomap Q @@
 " https://github.com/JetBrains/ideavim/blob/master/doc/sethandler.md
 " None, yet.  Possible conflicts: ctrl -6befhjklorsvw
 
+set ideajoin

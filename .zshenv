@@ -16,6 +16,10 @@ export PATH="$HOME/.cargo/bin:${PATH}"
 export JENV_ROOT="$HOME/.jenv"
 export PATH="$JENV_ROOT/bin:$PATH"
 
+# GO
+export GOPATH="$HOME/.go"
+export PATH="$GOPATH/bin:$PATH"
+
 # Spark
 if [[ "$OSTYPE" == "darwin"* ]]; then
   # export SPARK_HOME="$HOME/.local/apache-spark"
@@ -43,3 +47,6 @@ export PATH="$HOME/.jenv/bin:$PATH"
 . "$HOME/.cargo/env"
 
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
+export TMPDIR=$(getconf DARWIN_USER_TEMP_DIR)
+export TF_PLUGIN_CACHE_DIR=~/.cache/terraform

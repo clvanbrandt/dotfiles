@@ -24,11 +24,14 @@ alias config='/usr/bin/git --git-dir=${HOME}/.cfg/ --work-tree=${HOME}'
 alias ezsh='vi ${HOME}/.zshrc'
 alias efish='vi ${HOME}/.config/fish/config.fish'
 alias ezprofile='vi ${HOME}/.zprofile'
+alias ezenv='vi ${HOME}/.zshenv'
 alias ealias='vi ${HOME}/.zsh/alias.sh'
 alias ealacritty='vi ${HOME}/.config/alacritty/alacritty.toml'
+alias eghostty='vi ${HOME}/.config/ghostty/config'
 alias eqtile='vi ${HOME}/.config/qtile/config.py'
 alias envim='vi ${HOME}/.config/nvim/init.lua'
 alias essh='vi ${HOME}/.ssh/config'
+alias eaws='vi ${HOME}/.aws/config'
 alias eemacs='vi ${HOME}/.emacs.d/init.el'
 
 if command -v eza 1>/dev/null 2>&1; then
@@ -45,6 +48,8 @@ fi
 # Kubernetes
 alias kcuc='kubectl config use-context'
 alias kcucc='kubectl config unset current-context'
+alias kcsn='kubectl config set-context --current --namespace'
+alias kcucn='kubectl config unset contexts.$(kubectl config current-context).namespace'
 
 # Docker
 # alias docker='sudo docker'

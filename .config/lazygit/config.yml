@@ -4,3 +4,5 @@ startupPopupVersion: 1
 os:
   # Command for editing a file. Should contain "{{filename}}".
   edit: "nvim {{filename}}"
+git:
+  overrideGpg: true

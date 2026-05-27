@@ -1,5 +1,5 @@
 # theme = catppuccin-macchiato
-theme = tokyonight-storm
+theme = TokyoNight Storm
 font-size = 18
 font-feature = -calt
 font-feature = -liga

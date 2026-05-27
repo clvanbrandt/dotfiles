@@ -42,7 +42,7 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
-export HISTORY_IGNORE="(l[l ll]|cd|pwd|exit|h[s]|history|cd -|cd ..|cd|j|z|vi|e|vi *|l[alsh]#( *)#)"
+export HISTORY_IGNORE="(l[l ll]|cd|pwd|exit|h[s]|history|cd -|cd ..|cd|vim|nvim|j|z|vi|e|vi *|l[alsh]#( *)#)"
 export HISTFILE="${HOME}/.zsh_history"
 export SAVEHIST=10000
 export HISTSIZE=10000
@@ -88,3 +88,12 @@ fi
 # if command_exists atuin; then
 #   eval "$(atuin init zsh --disable-up-arrow)"
 # fi
+
+# START: Added by Updated Airflow Breeze autocomplete setup
+# source /Users/clvanbrandt/Projects/local/airflow/dev/breeze/autocomplete/breeze-complete-zsh.sh
+# END: Added by Updated Airflow Breeze autocomplete setup
+
+fpath+=~/.zfunc; autoload -Uz compinit; compinit
+
+# Scaleway CLI autocomplete initialization.
+# eval "$(scw autocomplete script shell=zsh)"
